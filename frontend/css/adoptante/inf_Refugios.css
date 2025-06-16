@@ -208,7 +208,7 @@ table {
     width: 90%;
     margin: 30px auto;
     border-collapse: collapse;
-    background: #fff;
+    background: #ddd;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 10px 20px rgba(0,0,0,0.2);
@@ -216,11 +216,11 @@ table {
 
 th, td {
     padding: 15px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #bbb;
 }
 
 th {
-    background: #ff6f91;
+    background: #777;
     color: white;
     font-size: 1.1rem;
 }

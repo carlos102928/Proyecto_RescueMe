@@ -92,7 +92,6 @@ nav a:hover{
 }
 
 .Presentacion p{
-        background-color: #4b45;
         padding: 10px;
         margin: 10px;
         border-radius: 15px;
@@ -191,6 +190,66 @@ a{
     text-decoration: none;
 }
 
+
+table {
+    width: 90%;
+    margin: 30px auto;
+    border-collapse: collapse;
+    background: #ddd;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+th, td {
+    padding: 15px;
+    border-bottom: 1px solid #bbb;
+}
+
+th {
+    background: #777;
+    color: white;
+    font-size: 1.1rem;
+}
+
+td {
+    font-size: 1rem;
+    color: #444;
+    text-align: center;
+}
+
+tr:hover {
+    background-color: #ffe3ed;
+}
+
+#contenedorRefugios {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    padding: 10px;
+    width: 90%;
+    justify-self: center;
+}
+
+.Refugio {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    padding: 1.2rem;
+    transition: transform 0.2s ease;
+}
+
+.Refugio:hover {
+    transform: scale(1.02);
+}
+
+.Refugio p {
+    margin: 0.5rem 0;
+    color: #333;
+    text-align: center;
+    background-color: none;
+}
 
 @media (max-width: 768px) {
     body {

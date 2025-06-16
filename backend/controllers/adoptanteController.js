@@ -1,8 +1,10 @@
-import {getAdoptante} from "../models/adoptanteModel.js";
+import {getAdoptantes} from "../models/adoptanteModel.js";
 
-export const obtenerAdoptantes = (req, res) =>{
-    getAdoptante((err, resultados) =>{
-        if (err) return res.status(500).json({error: err.message});
-        res.json(resiltados);
-    });
+export const obtenerAdoptantes = async (req, res) => {
+    try {
+        const resultado = await getAdoptantes();
+        res.json(resultado);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 };

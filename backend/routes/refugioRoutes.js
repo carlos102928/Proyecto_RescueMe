@@ -1,7 +1,8 @@
 import express from 'express';
-import { obtenerRefugios } from '../controllers/refugioController.js';
+import { obtenerRefugios, obtenerRefugiosPorId } from '../controllers/refugioController.js';
 const router = express.Router();
 
-router.get('/refugio', obtenerRefugios)
+router.get('/', obtenerRefugios);
 
+router.get('/:id', obtenerRefugiosPorId);
 export default router;

@@ -28,69 +28,38 @@
             </div>
         </div>
         <div class="Contenedor">
-        <div class="Presentacion">
-            <h6>Información animales de (refugio)</h6>
-            <div class="Informacion">
-            <div class="Detalles">
-                <h4>Animal</h4>
-                <h4>Raza</h4>
-                <h4>Vacunas</h4>
-            </div>
-            <div class="Detalles1">
-                <h4>Perro </h4>
-                <h4>Pastor aleman</h4>
-                <h4>Rabia, Hepatitis</h4>
-            </div>
-        </div>
-        <div class="Informacion">
-            <div class="Detalles">
-                <h4>Animal</h4>
-                <h4>Raza</h4>
-                <h4>Vacunas</h4>
-            </div>
-            <div class="Detalles1">
-                <h4>Gato </h4>
-                <h4>Egipcio</h4>
-                <h4>Rabia</h4>
-            </div>
-        </div>
-        <div class="Informacion">
-            <div class="Detalles">
-                <h4>Animal</h4>
-                <h4>Raza</h4>
-                <h4>Vacunas</h4>
-            </div>
-            <div class="Detalles1">
-                <h4>Conejo </h4>
-                <h4>Común</h4>
-                <h4>Rabia</h4>
-            </div>
-        </div>
-        <div class="Informacion">
-            <div class="Detalles">
-                <h4>Animal</h4>
-                <h4>Raza</h4>
-                <h4>Vacunas</h4>
-            </div>
-            <div class="Detalles1">
-                <h4>Perro</h4>
-                <h4>Chihuahua</h4>
-                <h4>Rabia, hepatitis</h4>
-            </div>
-        </div>
-        <div class="Informacion">
-            <div class="Detalles">
-                <h4>Animal</h4>
-                <h4>Raza</h4>
-                <h4>Vacunas</h4>
-            </div>
-            <div class="Detalles1">
-                <h4>Ave </h4>
-                <h4>Loro</h4>
-                <h4>Moquillo</h4>
+            <div class="Presentacion">
+                <div id="contenedorAnimales"></div>
             </div>
         </div>
         <script src="../../js/InicioAdmin.js"></script>
+        <script>
+            const params = new URLSearchParams(window.location.search);
+const idRefugio = params.get('id_refugio');
+const contenedor = document.getElementById('contenedorAnimales');
+
+fetch(`http://localhost:3000/api/animales/refugio/${idRefugio}`)
+  .then(res => res.json())
+  .then(animales => {
+    animales.forEach(animal => {
+      const card = document.createElement('div');
+      card.classList.add('animal-card');
+
+      card.innerHTML = `
+        <img src="${animal.imagen_url}" alt="Foto de ${animal.animal}" width="200">
+        <h3>${animal.animal}</h3>
+        <p>Raza: ${animal.raza}</p>
+        <p>Vacuna: ${animal.tipo_vacuna}</p>
+        <p>Estado: ${animal.estado}</p>
+      `;
+
+      contenedor.appendChild(card);
+    });
+  })
+  .catch(error => {
+    console.error('Error al cargar animales del refugio:', error);
+  });
+        </script>
 </div>
 </div>
 </body>
