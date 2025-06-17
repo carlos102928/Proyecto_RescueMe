@@ -29,80 +29,88 @@
         </div>
         <div class="Contenedor">
         <div class="Presentacion">
-            <h6>Gestión procesos adopción</h6>
-            <div class="Informacion">
-            <div class="Detalles">
-                <form action="">
-                <p>2025-05-16 / Inicio proceso adopción / Adoptante id 10 / Carlos / Escobar / Animal id 15 /
-                    <br>
-                    <label for="opciones">Seleccionar estado adopción</label>
-                    <select class="Opciones" id = "Opciones" required>
-                    <option value="">Seleccionar estado</option>
-                    <option value="opcion1">Aceptado</option>
-                    <option value="opcion2">Degenado</option>
-                    </select>
-                </p>
-                <p>2025-05-16 / Inicio proceso adopción / Adoptante id 10 / Jose / Flores / Animal id 10 /
-                    <br>
-                    <label for="opciones">Seleccionar estado adopción</label>
-                    <select class="Opciones" id = "Opciones" required>
-                    <option value="">Seleccionar estado</option>
-                    <option value="opcion1">Aceptado</option>
-                    <option value="opcion2">Degenado</option>
-                    </select>
-                </p>
-                <p>2025-05-17 / Inicio proceso adopción / Adoptante id 1 / Felipe / Gaitan / Animal id 5 /
-                    <br>
-                    <label for="opciones">Seleccionar estado adopción</label>
-                    <select class="Opciones" id = "Opciones" required>
-                    <option value="">Seleccionar estado</option>
-                    <option value="opcion1">Aceptado</option>
-                    <option value="opcion2">Degenado</option>
-                    </select>
-                </p>
-                <p>2025-05-17 /Inicio proceso adopción / Usuario id 11 / Ana / Correa / Animal id 7 /
-                    <br>
-                    <label for="opciones">Seleccionar estado adopción</label>
-                    <select class="Opciones" id = "Opciones" required>
-                    <option value="">Seleccionar estado</option>
-                    <option value="opcion1">Aceptado</option>
-                    <option value="opcion2">Degenado</option>
-                    </select>
-                </p>
-                <p>2025-05-17 / Inicio proceso adopción/ Usuario id 12 / Jesus / Molino / Animal id 3 /
-                    <br>
-                    <label for="opciones">Seleccionar estado adopción</label>
-                    <select class="Opciones" id = "Opciones" required>
-                    <option value="">Seleccionar estado</option>
-                    <option value="opcion1">Aceptado</option>
-                    <option value="opcion2">Degenado</option>
-                    </select>
-                </p>
-                <p>2025-05-17 / Inicio proceso adopción / Usuario id 3 / Carlos / Molina / Animal id 9 /
-                    <br>
-                    <label for="opciones">Seleccionar estado adopción</label>
-                    <select class="Opciones" id = "Opciones" required>
-                    <option value="">Seleccionar estado</option>
-                    <option value="opcion1">Aceptado</option>
-                    <option value="opcion2">Degenado</option>
-                    </select>
-                </p>
-                <p>2025-05-18 / Ingreso información / Usuario id 4 / Michael / Borbosa / Animal id 19 /
-                    <br>
-                    <label for="opciones">Seleccionar estado adopción</label>
-                    <select class="Opciones" id = "Opciones" required>
-                    <option value="">Seleccionar estado</option>
-                    <option value="opcion1">Aceptado</option>
-                    <option value="opcion2">Degenado</option>
-                    </select>
-                </p>
-                <button type="submit" onclick="mostrarTexto()">Enviar</button>
-                <p id="Texto">Se han acutalizado los estados</p>
-            </form>
-        </div>
+<div id="contenedorAdopciones"></div>
 </div>
 </div>
+</div>
+<script>
+const API_URL_ADOPCIONES = "http://localhost:3000/api/adopciones";
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const contenedor = document.getElementById('contenedorAdopciones');
+    const respuesta = await fetch(API_URL_ADOPCIONES);
+    const adopciones = await respuesta.json();
+
+    adopciones.forEach(adopcion => {
+        const div = document.createElement('div');
+
+        div.innerHTML = `
+            <p>${adopcion.fecha} / Adoptante ${adopcion.nombre} ${adopcion.apellido} / Animal ID ${adopcion.id_animal}</p>
+            <label>Seleccionar estado:</label>
+            <select id="estado-${adopcion.id_adopcion}">
+                <option value="">Seleccionar</option>
+                <option value="Aceptado">Aceptado</option>
+                <option value="Denegado">Denegado</option>
+            </select>
+            <button onclick="actualizarEstado(${adopcion.id_adopcion})">Actualizar</button>
+            <hr>
+        `;
+
+        contenedor.appendChild(div);
+    });
+});
+
+async function actualizarEstado(idAdopcion) {
+    const select = document.getElementById(`estado-${idAdopcion}`);
+    const estado = select.value;
+
+    if (!estado) return alert("Selecciona un estado");
+
+    const respuesta = await fetch(`http://localhost:3000/api/adopciones/${idAdopcion}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ estado })
+    });
+
+    const resultado = await respuesta.json();
+    if (respuesta.ok) {
+        alert("Estado actualizado correctamente");
+    } else {
+        alert("Error: " + resultado.mensaje);
+    }
+}
+</script>
 <script src="../../js/InicioAdmin.js"></script>
+<script>document.addEventListener('DOMContentLoaded', () => {
+  const botones = document.querySelectorAll('.btn-actualizar');
+
+  botones.forEach(boton => {
+    boton.addEventListener('click', async () => {
+      const contenedor = boton.closest('.adopcion-item');
+      const idAdopcion = contenedor.dataset.id;
+      const estado = contenedor.querySelector('.estado-select').value;
+
+      if (!estado) {
+        alert("Por favor selecciona un estado");
+        return;
+      }
+
+      try {
+        const response = await fetch(`http://localhost:3000/api/adopcion/${idAdopcion}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ estado })
+        });
+
+        const data = await response.json();
+        alert(data.mensaje);
+      } catch (error) {
+        console.error("Error al actualizar:", error);
+        alert("Hubo un error al actualizar");
+      }
+    });
+  });
+});</script>
 <script>
     function mostrarTexto() {
     let texto = document.getElementById("Texto");

@@ -21,3 +21,38 @@ export const registrarAdopcion = async (req, res) => {
     res.status(500).json({ message: 'Error al procesar la adopción' });
   }
 };
+
+export const actualizarEstadoAdopcion = async (req, res) => {
+    const { id_adopcion } = req.params;
+    const { estado } = req.body;
+
+    try {
+        const [result] = await pool.query(
+            'UPDATE adopcion SET estado = ? WHERE id_adopcion = ?',
+            [estado, id_adopcion]
+        );
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ mensaje: "Adopción no encontrada" });
+        }
+
+        res.status(200).json({ mensaje: "Estado actualizado correctamente" });
+    } catch (error) {
+        console.error("Error al actualizar estado:", error);
+        res.status(500).json({ mensaje: "Error del servidor" });
+    }
+};
+
+export const obtenerAdopciones = async (req, res) => {
+  try {
+    const [adopciones] = await pool.query(`
+      SELECT a.id_adopcion, a.fecha, a.estado, u.nombre, a.id_animal
+      FROM adopcion a
+      JOIN usuarios u ON a.id_adoptante = u.id_usuario
+    `);
+    res.status(200).json(adopciones);
+  } catch (error) {
+    console.error("Error al obtener adopciones:", error);
+    res.status(500).json({ mensaje: "Error al obtener adopciones" });
+  }
+};
