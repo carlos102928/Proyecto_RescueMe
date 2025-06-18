@@ -10,32 +10,27 @@
 <body>
     <nav class="Inicio">
         <div class="Principal"><a href="../../Inicio.html">Rescue Me</a></div>
-        <a href="Inicio_Sesion.html">Iniciar Sesión</a>
-        <a href="../inicio/Registro.html">Registrarse</a>
+        <a href="login.html">Iniciar Sesión</a>
+        <a href="../inicio/register.html">Registrarse</a>
     </nav>
-    <div class="singupFrm">
+    <div class="singupForm">
         <div class="visual">
         <form action="#" class="form" id="loginForm">
-            <h1 class="title">Inicio Sesión</h1>
+            <h1 class="title">Inicio Sesión Refugio</h1>
             <div class="inputcontainer">
-                <input type="email" class="input" placeholder="">
+                <input type="email" class="input" id="correo" placeholder="">
                 <label for="" class="label">Usuario</label>
             </div>
             <div class="inputcontainer">
-                <input type="password" class="input" placeholder="">
+                <input type="password" class="input" id = "contraseña" placeholder="">
                 <label for="" class="label">Contraseña</label>
             </div>
-            <div class="menu-container">
-                <button class="menu-button" onclick="toggleMenu()">Ingresar</button>
-                <div class="menu" id="menu">
-                    <a href="../administrador/InicioAdmin.html">Inicio admin</a>
-                    <a href="../adoptante/InicioA.html">Inicio adoptante</a>
-                    <a href="../refugios/InicioR.html">Inicio refugio</a>
+            <button type="submit">Ingresar</button>
                 </div>
             </div>
         </form>
         </div>
     </div>
-    <script src="../../js/InicioAdmin.js"></script>
+    <script src="../../js/loginRefugioMain.js"></script>
 </body>
 </html>

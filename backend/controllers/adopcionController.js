@@ -46,9 +46,11 @@ export const actualizarEstadoAdopcion = async (req, res) => {
 export const obtenerAdopciones = async (req, res) => {
   try {
     const [adopciones] = await pool.query(`
-      SELECT a.id_adopcion, a.fecha, a.estado, u.nombre, a.id_animal
+      SELECT a.id_adopcion, a.fecha, a.estado, u.nombre, a.id_animal, an.animal
       FROM adopcion a
       JOIN usuarios u ON a.id_adoptante = u.id_usuario
+      join animales an on a.id_animal = an.id_animal
+      where a.estado = "En proceso"
     `);
     res.status(200).json(adopciones);
   } catch (error) {

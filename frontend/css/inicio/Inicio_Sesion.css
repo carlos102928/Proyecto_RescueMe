@@ -219,6 +219,22 @@ nav a:hover{
     padding: 5px;
     border: solid black 1px;
 }
+
+.inicioSesionRefugio{
+    justify-self: center;
+    background-color: #bfb;
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bolder;
+    border: solid black 1px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.inicioSesionRefugio a{
+    text-decoration: none;
+}
 /* para pantallas menores a 768*/
 @media (max-width: 768px) {
     body{

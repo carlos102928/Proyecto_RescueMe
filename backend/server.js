@@ -9,6 +9,7 @@ import userRoutes from './routes/mostrarNombreRoutes.js';
 import refugioRoutes from './routes/refugioRoutes.js';
 import donacionRoutes from './routes/donacionRoutes.js';
 import adoptanteRoutes from './routes/adoptanteRoutes.js';
+import authRefugioRoutes from './routes/authRefugioRoutes.js'
 
 const app = express();
 app.use(cors());
@@ -24,7 +25,7 @@ app.use('/api', userRoutes);
 app.use('/api/refugio', refugioRoutes);
 app.use('/api', donacionRoutes);
 app.use('/api', adoptanteRoutes);
-
+app.use('/api', authRefugioRoutes)
 app.use('/api', authRoutes);
 
 app.get('/', (req, res) =>{

@@ -3,39 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro refugio Rescue Me</title>
-    <link rel="stylesheet" href="../../css/inicio/RegistroR.css">
+    <title>Registro Rescue Me</title>
+    <link rel="stylesheet" href="../../css/inicio/Registro.css">
     <link rel="icon" type="image/png" href="image/favicon.png">
 </head>
 <body>
     <nav class="Inicio">
         <div class="Principal"><a href="../../Inicio.html">Rescue Me</a></div>
-        <a href="../inicio/Inicio_Sesion.html">Iniciar Sesión</a>
-        <a href="RegistroR.html">Registrarse</a>
+        <a href="./login.html">Iniciar Sesión</a>
+        <a href="./register.html">Registrarse</a>
     </nav>
-    <div class="singupFrm">
-        <div class="visual">
-        <form action="#" class="form" id="registerRefugioForm">
-            <h1 class="title">Registro</h1>
-            <div class="inputcontainer">
-                <input type="email" class="input" placeholder="">
-                <label for="" class="label">Correo</label>
+ <div class="visual">
+   <form id="registerRefugioForm">
+                <h1 class="title">Registro</h1>
+  <input type="text" id="nombre_refugio" placeholder="Nombre del Refugio" required />
+  <input type="text" id="direccion" placeholder="Dirección" required />
+  <input type="email" id="correo" placeholder="Correo" required />
+  <input type="password" id="contraseña" placeholder="Contraseña" required />
+  <button type="submit">Registrar Refugio</button>
+</form>
+            <div class="submitBtn">
+            <button type="submit">Enviar</button>
             </div>
-            <div class="inputcontainer">
-                <input type="text" class="input" placeholder="">
-                <label for="" class="label">Nombre usuario</label>
-            </div>
-            <div class="inputcontainer">
-                <input type="text" class="input" placeholder="">
-                <label for="" class="label">Dirección</label>
-            </div>
-            <div class="inputcontainer">
-                <input type="password" class="input" placeholder="">
-                <label for="" class="label">Contraseña</label>
-            </div>
-            <div class="submitBtn"><button type="submit">Registrar</button></div>
         </form>
         </div>
     </div>
+    <script src="../../js/registerRefugioMain.js"></script>
 </body>
 </html>
