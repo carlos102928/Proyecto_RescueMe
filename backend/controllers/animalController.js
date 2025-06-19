@@ -49,3 +49,20 @@ export const getAnimalesPorRefugio = async (req, res) => {
         res.status(500).json({ message: 'Error al obtener animales del refugio' });
     }
 };
+
+
+export const insertarAnimal = async (req, res) => {
+  const { animal, raza, id_vacunas, imagen_url, id_refugio } = req.body;
+
+  try {
+    await pool.query(
+      'INSERT INTO animales (animal, raza, id_vacunas, imagen_url, id_refugio) VALUES (?, ?, ?, ?, ?)',
+      [animal, raza, id_vacunas, imagen_url, id_refugio]
+    );
+
+    res.status(201).json({ message: 'Animal registrado correctamente' });
+  } catch (error) {
+    console.error('Error al insertar animal:', error);
+    res.status(500).json({ message: 'Error al registrar animal' });
+  }
+};

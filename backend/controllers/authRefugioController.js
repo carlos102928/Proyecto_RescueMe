@@ -30,3 +30,19 @@ export const loginRefugio = async (req, res) => {
   const rol = await obtenerRolPorId(refugio.id_rol);
   res.status(200).json({ message: "Login exitoso", rol, id_refugio: refugio.id_refugio });
 };
+
+export const obtenerRefugioPorCorreoController = async (req, res) => {
+  try {
+    const { correo } = req.params;
+    const refugio = await buscarRefugioPorCorreo(correo); // 👍 uso correcto del modelo
+
+    if (!refugio) {
+      return res.status(404).json({ message: "Refugio no encontrado" });
+    }
+
+    res.status(200).json(refugio);
+  } catch (error) {
+    console.error("Error al obtener refugio:", error);
+    res.status(500).json({ message: "Error del servidor" });
+  }
+};

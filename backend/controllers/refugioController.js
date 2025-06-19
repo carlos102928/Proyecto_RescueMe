@@ -1,4 +1,4 @@
-import { getRefugios } from '../models/refugioModel.js';
+import { getRefugios, getRefugioById } from '../models/refugioModel.js';
 
 export const obtenerRefugios = async (req, res) => {
     try {
@@ -9,25 +9,18 @@ export const obtenerRefugios = async (req, res) => {
     }
 };
 
+export const obtenerRefugiosPorId = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const refugio = await getRefugioById(Number(id));  // 🔄 Usar la función correcta
 
-export const getRefugio = async (req, res) =>{
-    const refugios = await getRefugio()
-    res.status(200).json({message: 'Refugios encontrados', refugios});
-}
-
-
-export const obtenerRefugiosPorId = async (req, res) =>{
-    try{
-        const { id} = req.params;
-        const refugio = await obtenerRefugios(Number(id));
-        console.log('Resultado obtenido:', refugio);
-
-        if (!refugio){
-            return res.status(404).json()({mensaje: 'Refugio no encontrado'});
+        if (!refugio) {
+            return res.status(404).json({ mensaje: 'Refugio no encontrado' });
         }
-        res.json({refugio});
-    }  catch(error) {
+
+        res.status(200).json(refugio);
+    } catch (error) {
         console.error('Error al obtener refugio:', error);
-        res.status(500).json({mensaje: 'Error delservidor'})
+        res.status(500).json({ mensaje: 'Error del servidor' });
     }
-}
+};

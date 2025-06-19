@@ -18,14 +18,13 @@
         <div class="Presentacion">
             <h4>Insertar animales</h4>
             <p>En este apartado, usted deberá de seleccionar un archivo compatible en donde se ingresen los animales que usted quiera ingresar en el sistema.</p>
-            <form action="">
-                <div class="Archivo"><h4>Ingresar animal</h4><input id="Animal" type="text"name="Texto"placeholder="Tipo de animal que va a ingresar" required>
-                    <h4>Ingresar raza</h4><input id="Raza" type="text" name="Texto" placeholder="Tipo de raza del animal" required>
-                    <h4>Ingresar vacuna</h4><input id="Vacuna" type="text"name="Texto" placeholder="Vacuna que el animal tenga" required>
-                    <button type="submit" onclick="mostrarTexto()">Insertar animal</button>
-                    <p id="Texto">Se ha añadadido el animal al sistema.</p>
-                </div>
-            </form>
+<form id="formAnimal">
+  <input type="text" id="animal" placeholder="Tipo de animal" required />
+  <input type="text" id="raza" placeholder="Raza" required />
+  <input type="number" id="id_vacunas" placeholder="ID de vacuna" required />
+  <input type="text" id="imagen_url" placeholder="URL de imagen" />
+  <button type="submit">Registrar animal</button>
+</form>
     </div>
     </div>
     <script>
@@ -42,5 +41,23 @@
             }
         }
     </script>
+    <script>document.getElementById('formAnimal').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const animal = document.getElementById('animal').value;
+  const raza = document.getElementById('raza').value;
+  const id_vacunas = document.getElementById('id_vacunas').value;
+  const imagen_url = document.getElementById('imagen_url').value;
+  const id_refugio = localStorage.getItem('id_refugio'); // se guarda al hacer login del refugio
+
+  const res = await fetch('http://localhost:3000/api/animales/crear', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ animal, raza, id_vacunas, imagen_url, id_refugio })
+  });
+
+  const data = await res.json();
+  alert(data.message);
+});</script>
 </body>
 </html>

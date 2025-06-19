@@ -16,11 +16,7 @@
         </nav>
         <div class="Contenedor">    
             <div class="Informacion">
-                <div class="Caracteristicas">
-                    <h4>Datos registrados en el sistema</h4>
-                    <h6>Nombre refugio: </h6>
-                    <h6>Ubicación refugio: </h6>
-                    <h6>Contacto: </h6>
+                <div class="Caracteristicas" id="infoRefugio">
                 </div>
             </div>
             <div class="Actualizacion">
@@ -28,5 +24,31 @@
                 <a href="../refugios/Actualizacion.html"><button>Actualizar</button></a>
             </div>
             </div>
+        <script>document.addEventListener('DOMContentLoaded', async () => {
+  const ID = localStorage.getItem('id_refugio');
+  if (!ID) {
+    document.getElementById('infoRefugio').textContent = "No has iniciado sesión.";
+    return;
+  }
+
+  try {
+    const res = await fetch(`http://localhost:3000/api/refugio/${ID}`);
+    const refugio = await res.json();
+
+    if (res.ok) {
+      document.getElementById('infoRefugio').innerHTML = `
+        <p><strong>Nombre del Refugio:</strong> ${refugio.nombre_refugio}</p>
+        <p><strong>Dirección:</strong> ${refugio.direccion}</p>
+        <p><strong>Correo:</strong> ${refugio.correo}</p>
+      `;
+    } else {
+      document.getElementById('infoRefugio').textContent = refugio.message;
+    }
+  } catch (error) {
+    console.error("Error al cargar datos del refugio:", error);
+    document.getElementById('infoRefugio').textContent = "Error al cargar información.";
+  }
+});
+</script>
 </body>
 </html>
