@@ -19,6 +19,27 @@ nav{
     background-color: #94ef94ff;
     border-radius: 10px;
 }
+
+nav button{
+        border: solid black 1px;
+    text-decoration: none;
+    display: block;
+    margin: 10px;
+    background-color: #bfb;
+    padding: 8px;
+    border-radius: 10px;
+    color: #000;
+    font-weight: bolder;
+    text-align: center;  
+    line-height: 30px;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+nav button:hover{
+    transition: 0.5s ease;
+    background-color: #ada;
+}
 nav a{
     border: solid black 1px;
     text-decoration: none;

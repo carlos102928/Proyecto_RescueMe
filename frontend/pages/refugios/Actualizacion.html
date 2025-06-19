@@ -12,20 +12,73 @@
             <div class="Principal"><a href="./InicioR.html">Rescue Me</a></div>
             <a href="./DatosR.html">Datos refugio</a>
             <a href="./DonacionR.html">Donaciones</a>
-            <a href="./Inicio.html">Cerrar sesión</a>
+            <button id="logoutBtn">Cerrar sesión</button>
+            <script>
+                document.getElementById('logoutBtn').addEventListener('click', () =>{
+                    window.location.replace('../../Inicio.html')
+                })
+            </script>
         </nav>
         <div class="Contenedor">
         <div class="Presentacion">
-            <h4>Modificación de datos</h4>
-            <form>
-        <input type="text" placeholder="Nombre Refugio" class="Texto" required>
-        <input type="text" placeholder="Direccion Refugio" class="Texto"required>
-        <input type="text" placeholder="Numero de teléfono" class="Texto"required>
-        <input type="text" placeholder="Nombre Refugio" class="Texto"required>
-        <input type="submit" contenteditable="Texto" class="Enviar"required>
-        </form>
+<h1>Actualizar Datos del Refugio</h1>
+
+  <div>
+    <label>Nuevo nombre del refugio:</label>
+    <input type="text" id="nuevoNombre">
+    <button onclick="actualizarCampo('nombre_refugio', 'nuevoNombre')">Actualizar Nombre</button>
+  </div>
+
+  <div>
+    <label>Nueva dirección:</label>
+    <input type="text" id="nuevaDireccion">
+    <button onclick="actualizarCampo('direccion', 'nuevaDireccion')">Actualizar Dirección</button>
+  </div>
+
+  <div>
+    <label>Nuevo correo electrónico:</label>
+    <input type="email" id="nuevoCorreo">
+    <button onclick="actualizarCampo('correo', 'nuevoCorreo')">Actualizar Correo</button>
+  </div>
+
+  <div>
+    <label>Nueva contraseña:</label>
+    <input type="password" id="nuevaContrasena">
+    <button onclick="actualizarCampo('contraseña', 'nuevaContrasena')">Actualizar Contraseña</button>
+  </div>
         <a href="../refugios/DatosR.html" class="Regreso"><button>Regresar</button></a>
         <a href="./AnimalesR.html"><button>Insertar información animales</button></a>
     </div>
+
+<script>
+async function actualizarCampo(campo, inputId) {
+  const valor = document.getElementById(inputId).value;
+  const id_refugio = localStorage.getItem('id_refugio'); // guardado tras el login
+
+  if (!valor) {
+    alert("Por favor llena el campo antes de actualizar.");
+    return;
+  }
+
+  try {
+    const response = await fetch(`http://localhost:3000/api/refugio/actualizar/${id_refugio}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ campo, valor })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert("Información actualizada correctamente");
+    } else {
+      alert("Error: " + data.message);
+    }
+  } catch (error) {
+    console.error("Error al actualizar:", error);
+    alert("Ocurrió un error en la actualización");
+  }
+}
+</script>
 </body>
 </html>
