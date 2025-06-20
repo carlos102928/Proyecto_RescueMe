@@ -3,8 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+        body { display: none;}
+    </style>
     <title>Donaciones</title>
     <link rel="stylesheet" href="../../css/adoptante/Donacion.css">
+                  <script>
+    const rol = localStorage.getItem('rol');
+    if (!rol || rol !== 'adoptante') {
+      window.location.replace('../inicio/login.html');
+    }
+    </script>
 </head>
 <body>
         <nav class="Inicio">
@@ -14,9 +23,10 @@
             <a href="../adoptante/inf_Refugios.html">Refugios</a>
             <button id="logoutBtn">Cerrar sesión</button>
             <script>
-                document.getElementById('logoutBtn').addEventListener('click', () =>{
-                    window.location.replace('../../Inicio.html')
-                })
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  localStorage.clear();
+  window.location.replace('../../Inicio.html');
+});
             </script>
         </nav>
     <div class="Contenedor">
@@ -86,8 +96,12 @@ function mostrarTexto() {
     }
         </script>
     <script src="../../js/donacionMain.js"></script>
+    <script src="../../js/verificarSesion.js"></script>
     </div>
     </div>
     </div>
+            <script>
+  verificarRolPermitido(['adoptante'])
+  </script>
 </body>
 </html>

@@ -3,8 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+        body { display: none;}
+    </style>
     <title>Rescue Me ¡Bienvenido adoptante!</title>
     <link rel="stylesheet" href="../../css/administrador/Animalesinf.css">
+          <script>
+    const rol = localStorage.getItem('rol');
+    if (!rol || rol !== 'administrador') {
+      window.location.replace('../inicio/login.html');
+    }
+    </script>
 </head>
 <body>
     <body>
@@ -15,6 +24,7 @@
             <button id="logoutBtn">Cerrar sesión</button>
             <script>
                 document.getElementById('logoutBtn').addEventListener('click', () =>{
+                    localStorage.clear();
                     window.location.replace('../../Inicio.html')
                 })
             </script>
@@ -62,5 +72,9 @@ fetch(`http://localhost:3000/api/animales/refugio/${idRefugio}`)
         </script>
 </div>
 </div>
+<script src="../../js/verificarSesion.js"></script>
+<script>
+  verificarRolPermitido(['administrador'])
+</script>
 </body>
 </html>

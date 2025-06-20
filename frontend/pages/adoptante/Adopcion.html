@@ -3,8 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+        body { display: none;}
+    </style>
     <title>Seleccione su animal deseado</title>
     <link rel="stylesheet" href="../../css/adoptante/Adopcion.css">
+                  <script>
+    const rol = localStorage.getItem('rol');
+    if (!rol || rol !== 'adoptante') {
+      window.location.replace('../inicio/login.html');
+    }
+    </script>
 </head>
 <body>
         <nav class="Inicio">
@@ -14,14 +23,19 @@
             <a href="../adoptante/inf_Refugios.html">Refugios</a>
             <button id="logoutBtn">Cerrar sesión</button>
             <script>
-                document.getElementById('logoutBtn').addEventListener('click', () =>{
-                    window.location.replace('../../Inicio.html')
-                })
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  localStorage.clear();
+  window.location.replace('../../Inicio.html');
+});
             </script>
         </nav>
     <div class="Contenedor" id="contenedorAnimales">
 
     </div>
   <script src="../../js/animalMain.js"></script>
+    <script src="../../js/verificarSesion.js"></script>
+        <script>
+  verificarRolPermitido(['adoptante'])
+  </script>
 </body>
 </html>

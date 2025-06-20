@@ -3,8 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+        body { display: none;}
+    </style>
     <title>Permisos Usuarios</title>
     <link rel="stylesheet" href="../../css/administrador/Permisos.css">
+              <script>
+    const rol = localStorage.getItem('rol');
+    if (!rol || rol !== 'administrador') {
+      window.location.replace('../inicio/login.html');
+    }
+    </script>
 </head>
 <body>
 <nav class="Inicio">
@@ -14,7 +23,8 @@
             <button id="logoutBtn">Cerrar sesión</button>
             <script>
                 document.getElementById('logoutBtn').addEventListener('click', () =>{
-                    window.location.replace('../../Inicio.html')
+                    localStorage.clear();
+                    window.location.replace('../inicio/login.html')
                 })
             </script>
         </nav>
@@ -41,6 +51,10 @@
             <a href="ModificarP.html"><button>Modificar</button></a>
     </div>
 </div>
-            <script src="../../js/InicioAdmin.js"></script>
+    <script src="../../js/InicioAdmin.js"></script>
+    <script src="../../js/verificarSesion.js"></script>
+        <script>
+  verificarRolPermitido(['administrador'])
+  </script>
 </body>
 </html>

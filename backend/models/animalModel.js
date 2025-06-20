@@ -1,7 +1,7 @@
 import { pool } from "../config/db.js"
 
 export const getAnimales = async () => {
-    const [rows] = await pool.query('select a.id_animal, a.animal, a.raza, a.imagen_url, r.nombre_refugio from animales a join refugio r on a.id_refugio = r.id_refugio; ');
+    const [rows] = await pool.query('select a.id_animal, a.animal, a.raza, a.imagen_url, r.nombre_refugio from animales a join refugio r on a.id_refugio = r.id_refugio where a.estado = "Sin Adoptar"; ');
     return rows;
 };
 

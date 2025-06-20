@@ -172,6 +172,7 @@ button:hover{
     font-size: 16px;
     border-radius: 5px;
     margin: 15px 0 0;
+    width: 70px;
 }
 .menu-button:hover {
     transition: 0.5s ease;
@@ -211,6 +212,10 @@ input[type="submit"]{
     cursor: pointer;
     width: 45%;
     border-radius: 15px;
+}
+
+#logoutBtn{
+    width: 90%;
 }
 
 input[type="submit"]:hover{

@@ -34,6 +34,7 @@ nav button{
     line-height: 30px;
     font-weight: bolder;
     cursor: pointer;
+    width: 90%;
 }
 
 nav button:hover{

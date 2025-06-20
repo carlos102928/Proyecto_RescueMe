@@ -14,18 +14,26 @@
         <a href="./register.html">Registrarse</a>
     </nav>
  <div class="visual">
-   <form id="registerRefugioForm">
-                <h1 class="title">Registro</h1>
-  <input type="text" id="nombre_refugio" placeholder="Nombre del Refugio" required />
-  <input type="text" id="direccion" placeholder="Dirección" required />
-  <input type="email" id="correo" placeholder="Correo" required />
-  <input type="password" id="contraseña" placeholder="Contraseña" required />
-  <button type="submit">Registrar Refugio</button>
+   <form id="registerRefugioForm" class="form">
+    <h1 class="title">Registro refugio</h1>
+    <div class="inputcontainer">
+        <input type="text" class="input" id="nombre_refugio" placeholder="" required />
+        <label for="" class="label">Nombre refugio</label>
+    </div>
+    <div class="inputcontainer">
+         <input type="text" class="input" id="direccion" placeholder="" required />
+         <label for="" class="label">Dirección refugio</label>
+    </div>
+    <div class="inputcontainer">
+        <input type="email" class="input" id="correo" placeholder="" required />
+        <label for="" class="label">Correo refugio</label>
+    </div>
+    <div class="inputcontainer">
+         <input type="password" class="input" id="contraseña" placeholder="" required />
+         <label for="" class="label">Contraseña</label>
+        </div>
+    <div class="submitBtn">  <button type="submit">Registrar</button></div>
 </form>
-            <div class="submitBtn">
-            <button type="submit">Enviar</button>
-            </div>
-        </form>
         </div>
     </div>
     <script src="../../js/registerRefugioMain.js"></script>

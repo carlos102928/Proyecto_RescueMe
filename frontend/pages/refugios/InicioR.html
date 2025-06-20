@@ -3,8 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <style>
+        body { display: none;}
+    </style>
     <title>¡Bienvenido refugio! Rescue Me</title>
     <link rel="stylesheet" href="../../css/refugios/InicioR.css">
+                  <script>
+    const rol = localStorage.getItem('rol');
+    if (!rol || rol !== 'refugio') {
+      window.location.replace('../inicio/login.html');
+    }
+    </script>
 </head>
 <body>
     <body>
@@ -14,9 +23,10 @@
             <a href="./DonacionR.html">Donaciones</a>
             <button id="logoutBtn">Cerrar sesión</button>
             <script>
-                document.getElementById('logoutBtn').addEventListener('click', () =>{
-                    window.location.replace('../../Inicio.html')
-                })
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  localStorage.clear();
+  window.location.replace('../../Inicio.html');
+});
             </script>
         </nav>
         <div class="Contenedor">
@@ -25,5 +35,9 @@
             <p>Bienvenido a RescueMe, agradecemos mucho que nos hayas elegido, aquí podras hacer que la información de tu refugio y animales sea reflejada en la aplicación, te invitamos a explorar nuestras interfaces para que puedas recononocer tus posibilidades en la aplicación.</p>
         </div>
     </div>
+    <script src="../../js/verificarSesion.js"></script>
+            <script>
+  verificarRolPermitido(['refugio'])
+  </script>
 </body>
 </html>
