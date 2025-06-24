@@ -48,12 +48,29 @@ console.log(datos);
             <td>${refugio.nombre_refugio}</td>
             <td>${refugio.direccion}</td>
             <td>${refugio.correo}</td>
+            <td><button onclick="eliminarRefugio(${refugio.id_refugio})">Eliminar</button></td>
         </tr>
         `;
     });
     } catch (error) {
     console.error('Error al cargar los clientes:', error);
     }
+}
+
+async function eliminarRefugio(id) {
+  if (!confirm("¿Estás seguro de eliminar este refugio?")) return;
+  
+  try {
+    const res = await fetch(`http://localhost:3000/api/refugio/${id}`, {
+      method: 'DELETE'
+    });
+    const data = await res.json();
+    alert(data.mensaje);
+    location.reload(); // o volver a cargar la lista sin recargar toda la página
+  } catch (error) {
+    console.error("Error al eliminar refugio:", error);
+    alert("Error al eliminar el refugio");
+  }
 }
 
 cargarRefugios();

@@ -29,29 +29,42 @@ document.getElementById('logoutBtn').addEventListener('click', () => {
 });
             </script>
         </nav>
-        <div class="Contenedor">
+    <div class="Contenedor">
         <div class="Presentacion">
-            <h2>¡Bienvenido Refugio!</h2>
+            <h2 id="refugioTitulo">¡Cargando datos del refugio...!</h2>
             <p>Aquí está el reporte de ingresos realizado a su refugio</p>
+            
             <div class="Flex">
-            <div class="Donaciones">
-                <h3>Donaciones</h3>
-                <h4>Valor donación: 50.000 <br>Usuario: 1</h4>
-                <h4>Valor donación: 20.000 <br>Usuario: 2</h4>
-                <h4>Valor donación: 30.000 <br>Usuario: 3</h4>
-                <h4>Valor donación: 150.000 <br>Usuario: 4</h4>
-                <h4>Valor donación: 70.000 <br>Usuario: 5</h4>
+                <div class="Donaciones">
+                    <h3>Donaciones</h3>
+                    <div class="table-container">
+                        <table id="tablaDonaciones">
+                            <thead>
+                                <tr>
+                                    <th>Usuario</th>
+                                    <th>Valor Donación</th>
+                                    <th>Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="3">Cargando donaciones...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="Datos">
+                    <h4>Cuenta registrada</h4>
+                    <p>Nequi: 3145556662</p>
+                </div>
             </div>
-            <div class="Datos">
-                <h4>Cuenta registrada</h4>
-                <p>Nequi: 3145556662</p>
-            </div>
-        </div>
         </div>
     </div>
+
+    <script src="../../js/donacionMain.js"></script>
     <script src="../../js/verificarSesion.js"></script>
-            <script>
-  verificarRolPermitido(['refugio'])
-  </script>
+<script>verificarRolPermitido(['refugio'])</script>
 </body>
 </html>

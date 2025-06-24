@@ -1,7 +1,9 @@
 import express from "express";
-import { obtenerAdoptantes } from "../controllers/adoptanteController.js";
+import { obtenerAdoptantes, actualizarRolUsuario, eliminarUsuario } from "../controllers/adoptanteController.js";
 const router = express.Router();
 
-router.get("/adoptantes", obtenerAdoptantes);
+router.get("/", obtenerAdoptantes);
+router.put('/:id/rol', actualizarRolUsuario);
+router.delete('/:id', eliminarUsuario)
 
 export default router;

@@ -32,22 +32,18 @@ export const obtenerAnimalPorId = async (req, res) => {
 };
 
 export const getAnimalesPorRefugio = async (req, res) => {
-    const { id_refugio } = req.params;
+  const { id_refugio } = req.params;
 
-    try {
-        const [rows] = await pool.query(
-            `SELECT a.id_animal, a.animal, a.raza, a.estado, a.imagen_url, v.tipo_vacuna 
-             FROM animales a 
-             JOIN vacunas v ON a.id_vacunas = v.id_vacuna 
-             WHERE a.id_refugio = ?`, 
-            [id_refugio]
-        );
-
-        res.json(rows);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error al obtener animales del refugio' });
-    }
+  try {
+    const [rows] = await pool.query(
+      `SELECT id_animal, animal, raza, imagen_url, id_vacunas, estado FROM animales WHERE id_refugio = ?`,
+      [id_refugio]
+    );
+    res.json(rows);
+  } catch (error) {
+    console.error("Error al obtener animales:", error);
+    res.status(500).json({ mensaje: 'Error en el servidor al obtener los animales' });
+  }
 };
 
 
@@ -64,5 +60,22 @@ export const insertarAnimal = async (req, res) => {
   } catch (error) {
     console.error('Error al insertar animal:', error);
     res.status(500).json({ message: 'Error al registrar animal' });
+  }
+};
+
+export const eliminarAnimal = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const [result] = await pool.query("DELETE FROM animales WHERE id_animal = ?", [id]);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ mensaje: "Animal no encontrado" });
+    }
+
+    res.status(200).json({ mensaje: "Animal eliminado correctamente" });
+  } catch (error) {
+    console.error("Error al eliminar animal:", error);
+    res.status(500).json({ mensaje: "Error del servidor al eliminar animal" });
   }
 };

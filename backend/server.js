@@ -24,9 +24,10 @@ app.use('/api/animales', animalRoutes);
 app.use('/api', userRoutes);
 app.use('/api/refugio', refugioRoutes);
 app.use('/api', donacionRoutes);
-app.use('/api', adoptanteRoutes);
+app.use('/api/adoptantes', adoptanteRoutes);
 app.use('/api', authRefugioRoutes)
 app.use('/api', authRoutes);
+app.use('/api', donacionRoutes)
 
 app.get('/', (req, res) =>{
     res.sendFile(path.join(__dirname, '../frontend/Inicio.html'));

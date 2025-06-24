@@ -59,8 +59,9 @@ fetch(`http://localhost:3000/api/animales/refugio/${idRefugio}`)
         <img src="${animal.imagen_url}" alt="Foto de ${animal.animal}" width="200">
         <h3>${animal.animal}</h3>
         <p>Raza: ${animal.raza}</p>
-        <p>Vacuna: ${animal.tipo_vacuna}</p>
+        <p>Vacuna: ${animal.id_vacunas}</p>
         <p>Estado: ${animal.estado}</p>
+        <button onclick="eliminarAnimal(${animal.id_animal})">Eliminar</button>
       `;
 
       contenedor.appendChild(card);
@@ -76,5 +77,20 @@ fetch(`http://localhost:3000/api/animales/refugio/${idRefugio}`)
 <script>
   verificarRolPermitido(['administrador'])
 </script>
+<script>async function eliminarAnimal(id) {
+  if (!confirm("¿Estás seguro de eliminar este animal?")) return;
+  
+  try {
+    const res = await fetch(`http://localhost:3000/api/animales/${id}`, {
+      method: 'DELETE'
+    });
+    const data = await res.json();
+    alert(data.mensaje);
+    location.reload(); // o volver a cargar la lista sin recargar toda la página
+  } catch (error) {
+    console.error("Error al eliminar el animal:", error);
+    alert("Error al eliminar el animal");
+  }
+}</script>
 </body>
 </html>

@@ -49,3 +49,20 @@ export const actualizarCampoRefugio = async (req, res) => {
     res.status(500).json({ message: "Error al actualizar el campo" });
   }
 };
+
+export const eliminarRefugio = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const [result] = await pool.query("DELETE FROM refugio WHERE id_refugio = ?", [id]);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ mensaje: "Refugio no encontrado" });
+    }
+
+    res.status(200).json({ mensaje: "Refugio eliminado correctamente" });
+  } catch (error) {
+    console.error("Error al eliminar refugio:", error);
+    res.status(500).json({ mensaje: "Error del servidor al eliminar refugio" });
+  }
+};

@@ -40,8 +40,11 @@
                 <a href="./Registros.html">Registros</a>
             </div>
         </div>
-        <div class="Contenedor">
-            <div class="Presentacion">
+  <div class="Contenedor">
+    
+    <h2>Lista de Adoptantes</h2>
+    <div id="listaAdoptantes"></div>
+  </div>
                     <table>
                         <thead>
                             <tr>
@@ -53,8 +56,87 @@
                         </thead>
                         <tbody id="tablaAdoptantes"></tbody>
                     </table>
-            </div>
-        </div>
+  <script>
+    // Asumiendo que tienes una API para obtener adoptantes
+    const API_URL_ADOPTANTES_ADMIN = "http://localhost:3000/api/adoptantes";
+
+    async function cargarAdoptantes() {
+      try {
+        const response = await fetch(API_URL_ADOPTANTES_ADMIN);
+        const adoptantes = await response.json();
+
+        const lista = document.getElementById('listaAdoptantes');
+        lista.innerHTML = '';
+        
+        adoptantes.forEach(adoptante => {
+          // Creación de un contenedor para cada adoptante
+          const contenedor = document.createElement('div');
+          contenedor.classList.add('adoptante-item');
+          
+          contenedor.innerHTML = `
+            <p><strong>ID:</strong> ${adoptante.id_usuario}</p>
+            <p><strong>Nombre:</strong> ${adoptante.nombre}</p>
+            <p><strong>Correo:</strong> ${adoptante.correo}</p>
+            <p><strong>Rol actual:</strong> ${adoptante.rol}</p>
+            <!-- Botón para eliminar -->
+            <button onclick="eliminarAdoptante(${adoptante.id_usuario})">Eliminar</button>
+            <!-- Actualizar rol: select y botón -->
+            <select id="rol-${adoptante.id_usuario}">
+              <option value="">Seleccionar nuevo rol</option>
+              <option value="1">Adoptante</option>
+              <option value="2">Administrador</option>
+            </select>
+            <button onclick="actualizarRol(${adoptante.id_usuario})">Actualizar Rol</button>
+            <hr>
+          `;
+          lista.appendChild(contenedor);
+        });
+      } catch (error) {
+        console.error("Error al cargar adoptantes:", error);
+      }
+    }
+
+    async function eliminarAdoptante(idUsuario) {
+      if (!confirm("¿Está seguro de eliminar este adoptante?")) return;
+      try {
+        const response = await fetch(`http://localhost:3000/api/adoptantes/${idUsuario}`, {
+          method: 'DELETE'
+        });
+        const data = await response.json();
+        alert(data.mensaje);
+        cargarAdoptantes(); // refrescar la lista
+      } catch (error) {
+        console.error("Error al eliminar adoptante:", error);
+        alert("Error al eliminar adoptante");
+      }
+    }
+
+    async function actualizarRol(idUsuario) {
+      const select = document.getElementById(`rol-${idUsuario}`);
+      const nuevoIdRol = select.value;
+      if (!nuevoIdRol) {
+        alert("Seleccione un nuevo rol.");
+        return;
+      }
+      try {
+        const response = await fetch(`http://localhost:3000/api/adoptantes/${idUsuario}/rol`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nuevoIdRol })
+        });
+        const data = await response.json();
+        alert(data.mensaje);
+        cargarAdoptantes(); // refrescar la lista
+      } catch (error) {
+        console.error("Error al actualizar rol:", error);
+        alert("Error al actualizar el rol");
+      }
+    }
+
+    cargarAdoptantes();
+  </script>
+</body>
+</html>
     
     <script src="../../js/adoptanteMain.js"></script>
     <script src="../../js/InicioAdmin.js"></script>
