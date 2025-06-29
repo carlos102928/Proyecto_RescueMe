@@ -19,6 +19,24 @@ nav{
     justify-self: center;
 }
 
+
+/**/
+.Permisos>a{
+  display: flex;
+  justify-self: center;
+  text-decoration: none;
+
+}
+a>button{
+  
+  
+  justify-content: center;
+  
+}
+
+
+/**/
+
 nav button{
         border: solid black 1px;
     text-decoration: none;
@@ -62,7 +80,7 @@ nav button:hover{
     font-size: 12px;
     text-align: left;
     margin: 15px;
-    background-color: #dfd;
+    background-color: rgba(117, 165, 117, 0.445);
     padding: 5px;
     border-radius: 15px;
     width: 150px;

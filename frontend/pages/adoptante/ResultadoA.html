@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mis Adopciones</title>
+  <link rel="stylesheet" href="../../css/adoptante/ResultadoA.css">
+</head>
+<body>
+<nav class="Inicio">
+            <div class="Principal"><a href="../adoptante/InicioA.html">Rescue Me</a></div>
+            <a href="../adoptante/Adopcion.html">¡Adopta!</a>
+            <a href="../adoptante/Donacion.html">Donaciones</a>
+            <a href="../adoptante/inf_Refugios.html">Refugios</a>
+            <button id="logoutBtn">Cerrar sesión</button>
+            <script>
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  localStorage.clear();
+  window.location.replace('../../Inicio.html');
+});
+</script>
+</nav>
+
+  <div class="Contenedor">
+    <h2>Mis solicitudes de adopción</h2>
+    <div id="listaAdopciones"></div>
+  </div>
+
+  <script>
+
+    const idAdoptante = localStorage.getItem('id_usuario');
+    const contenedor = document.getElementById('listaAdopciones');
+
+    async function cargarAdopciones() {
+      try {
+        const res = await fetch(`http://localhost:3000/api/adopciones/usuario/${idAdoptante}`);
+        const adopciones = await res.json();
+
+        contenedor.innerHTML = '';
+
+        adopciones.forEach(adopcion => {
+          const card = document.createElement('div');
+          card.classList.add('adopcion-card');
+
+          card.innerHTML = `
+            <p><strong>Animal:</strong> ${adopcion.animal}</p>
+            <p><strong>Raza:</strong> ${adopcion.raza}</p>
+            <p><strong>Estado:</strong> ${adopcion.estado}</p>
+            <p><strong>Fecha:</strong> ${new Date(adopcion.fecha).toLocaleDateString()}</p>
+            ${adopcion.estado === 'En proceso' ? 
+              `<button onclick="cancelarAdopcion(${adopcion.id_adopcion})">Cancelar solicitud</button>` : ''}
+            <hr>
+          `;
+
+          contenedor.appendChild(card);
+        });
+
+      } catch (error) {
+        console.error('Error al cargar adopciones:', error);
+        contenedor.textContent = 'No se pudieron cargar tus adopciones.';
+      }
+    }
+
+    async function cancelarAdopcion(id) {
+      if (!confirm("¿Seguro que deseas cancelar esta solicitud?")) return;
+
+      try {
+        const res = await fetch(`http://localhost:3000/api/adopciones/${id}`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id_adoptante: idAdoptante })
+        });
+        const data = await res.json();
+        alert(data.mensaje);
+        cargarAdopciones();
+      } catch (error) {
+        console.error('Error al cancelar adopción:', error);
+        alert('Error al cancelar adopción');
+      }
+    }
+
+    cargarAdopciones();
+  </script>
+  <script src="../../js/verificarSesion.js"></script>
+  <script>
+    verificarRolPermitido(['adoptante']);
+    document.body.style.display = 'block';
+  </script>
+</body>
+</html>

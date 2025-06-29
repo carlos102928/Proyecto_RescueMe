@@ -1,5 +1,4 @@
 import { pool } from '../config/db.js';
-
 export const registrarAdopcion = async (req, res) => {
   const { correo, id_animal } = req.body;
 
@@ -56,5 +55,34 @@ export const obtenerAdopciones = async (req, res) => {
   } catch (error) {
     console.error("Error al obtener adopciones:", error);
     res.status(500).json({ mensaje: "Error al obtener adopciones" });
+  }
+};
+
+import { obtenerAdopcionesPorUsuario, cancelarAdopcion } from "../models/adopcionModel.js";
+
+export const getAdopcionesUsuario = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const adopciones = await obtenerAdopcionesPorUsuario(id);
+    res.json(adopciones);
+  } catch (error) {
+    console.error("Error al obtener adopciones:", error);
+    res.status(500).json({ mensaje: "Error al obtener adopciones" });
+  }
+};
+
+export const eliminarAdopcion = async (req, res) => {
+  const { id } = req.params;
+  const { id_adoptante } = req.body;
+
+  try {
+    const resultado = await cancelarAdopcion(id, id_adoptante);
+    if (resultado.affectedRows === 0) {
+      return res.status(400).json({ mensaje: "No se pudo eliminar la adopción" });
+    }
+    res.json({ mensaje: "Adopción cancelada correctamente" });
+  } catch (error) {
+    console.error("Error al eliminar adopción:", error);
+    res.status(500).json({ mensaje: "Error del servidor al cancelar la adopción" });
   }
 };

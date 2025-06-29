@@ -43,8 +43,6 @@ nav button:hover{
 
 .Contenedor{
     border: solid black 1px;
-    display: grid;
-    grid-template-columns: repeat(3, 33%);
     justify-content: center;
     width: 70%;
     justify-items: center;
@@ -52,6 +50,7 @@ nav button:hover{
     border-radius: 15px;
     margin: 30px;
     padding: 10px;
+    text-align: center;
 }
 
 .Animal {
@@ -148,24 +147,6 @@ nav a:hover{
     background-color: #ada;
 }
 
-.ResultadoA{
-  margin: 20px 10px 0;
-  background-color: #8d8;
-  padding: 4px;
-  border-radius: 15px;
-  height: 35px;
-  cursor: pointer;
-}
-
-.ResultadoA:hover{
-  transition: 0.5s ease;
-  background-color: #7c7;
-}
-
-.ResultadoA a{
-  text-decoration: none;
-  color: black;
-}
 /* para pantallas menores entre 1200 a 768*/
 @media (max-width: 1200px) {
   body{

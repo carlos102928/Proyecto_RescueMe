@@ -9,6 +9,43 @@ body{
     justify-content: center;
 }
 
+#listaAdoptantes{
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+}
+/*edicion PRIMER LISTADO*/
+.adoptante-item > p {
+    background-color: #94ef94ff;
+    margin: 10px 10px 10px 10px;
+    padding: 8px;
+   border-radius: 10px;
+   border: solid black 1px;
+
+}
+
+.adoptante-item{
+  background-color: #bfb;
+  padding: 10px;
+  border-radius: 10px;  
+  border: solid black 1px;
+  margin: 10px 20px;
+}
+.adoptante-item>button, .adoptante-item>select{
+  background-color: rgba(18, 107, 55, 0.548);
+  padding: 5px;
+  border-radius: 10px;
+  border: solid 1px black;
+}
+.adoptante-item>button:hover{
+   background-color: rgba(47, 49, 47, 0.678);
+   color: white;
+}
+.adoptante-item>select:hover{
+  background-color: rgba(47, 49, 47, 0.678);
+   color: white;
+}
+
+/**/
 nav{
     border: solid black 1px;
     display: grid;
@@ -85,6 +122,7 @@ nav button:hover{
     margin: 30px;
     padding: 10px;
     justify-self: center;
+    height: 400px;
 }
 
 nav a:hover{
@@ -257,12 +295,7 @@ tr:hover {
       font-size: 16px;
       padding: 10px;
     }
-  
-    .Contenedor {
-      width: 450px;
-      margin: 20px auto;
-      padding: 15px;
-    }
+
   
     .Informacion {
       flex-direction: row;
@@ -301,6 +334,15 @@ tr:hover {
   
     .menu a {
       font-size: 14px;
+    }
+
+    .adoptante-item select{
+      width: 70%;
+      text-align: center;
+    }
+
+    .adoptante-item button{
+      width: 70%;
     }
   }
   

@@ -57,6 +57,29 @@
     <script src="../../js/InicioAdmin.js"></script>
     <script src="../../js/refugiosMain.js"></script>
     <script src="../../js/verificarSesion.js"></script>
+    <script>async function cargarRefugios() {
+    try {
+    const res = await fetch(API_URL_REFUGIOS);
+    const datos = await res.json();
+console.log(datos);
+    const tabla = document.getElementById('tablaRefugios');
+    tabla.innerHTML = '';
+    datos.forEach(refugio => {
+        tabla.innerHTML += `
+        <tr>
+            <td>${refugio.nombre_refugio}</td>
+            <td>${refugio.direccion}</td>
+            <td>${refugio.correo}</td>
+            <td><button onclick="eliminarRefugio(${refugio.id_refugio})">Eliminar</button></td>
+        </tr>
+        `;
+    });
+    } catch (error) {
+    console.error('Error al cargar los clientes:', error);
+    }
+}
+    cargarRefugios();
+</script>
 
 <script>
   verificarRolPermitido(['administrador'])

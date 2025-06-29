@@ -20,6 +20,25 @@ nav{
     justify-self: center;
 }
 
+/*class awdawd*/
+.Refugio>a{
+display: flex;
+justify-self: center;
+text-decoration: none;
+
+}
+a>button{
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.6);
+    margin: 25px 15px;
+    padding: 7px;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 15px;
+    border:  black solid 1px;
+    
+}
+
 nav button{
         border: solid black 1px;
     text-decoration: none;

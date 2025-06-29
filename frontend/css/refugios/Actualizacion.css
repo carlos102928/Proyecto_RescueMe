@@ -36,8 +36,56 @@ nav button{
     cursor: pointer;
     width: 90%;
 }
+/**/
+.Presentacion{
+    border: solid black 1px;
+    width: 80%;
+    background-color: #b1efb1;
+    border-radius: 10px;
+    justify-items: center;
+
+}
+.Presentacion>div{
+    border: solid black 1px;
+    background-color: #b1efb1;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    justify-items: center;
+    justify-self: center;
+}
+.Presentacion>div>label{
+    display: flex;
+    justify-self: center;
+
+}
+.Presentacion>div>input{
+    display: flex;
+    justify-self: center;
+
+    border-radius: 10px;
+}
+.Presentacion>div>button:hover{
+transition: 0.5s ease;
+background-color: #ada;
+}
+.Presentacion>a{
+    padding: 2px;
+    margin: 2px;
+    display: flex;
+    justify-self: center;
+
+}
+
+
+
+
+/**/
+
+
 
 nav button:hover{
+
     transition: 0.5s ease;
     background-color: #ada;
 }
@@ -55,15 +103,7 @@ nav a{
     line-height: 30px;
 }
 
-.Presentacion{
-    border: solid black 1px;
-    width: 80%;
-    background-color: #b1efb1;
-    padding: 10px;
-    margin: 10px;
-    border-radius: 10px;
-    justify-items: center;
-}
+
 
 .Presentacion h4{
     width: 60%;

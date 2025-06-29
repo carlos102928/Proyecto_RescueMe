@@ -48,7 +48,6 @@ console.log(datos);
             <td>${refugio.nombre_refugio}</td>
             <td>${refugio.direccion}</td>
             <td>${refugio.correo}</td>
-            <td><button onclick="eliminarRefugio(${refugio.id_refugio})">Eliminar</button></td>
         </tr>
         `;
     });
