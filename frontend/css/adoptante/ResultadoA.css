@@ -122,6 +122,8 @@ nav button:hover{
     border: solid black 1px;
 }
 
+
+
 nav a{
     border: solid black 1px;
     text-decoration: none;
@@ -136,12 +138,33 @@ nav a{
     line-height: 30px;
 }
 
-
+.Presentacion{
+    border: solid black 1px;
+    width: 80%;
+    background-color: #b1efb1;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
 .Principal a{
     font-size: 25px;
     font-family: "Lucida Handwriting", "Dancing Script", cursive;
 }
 
+#listaAdopciones{
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+}
+
+#listaAdopciones div{
+  margin: 10px;
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 5px;
+  width: 70%;
+  justify-self: center;
+}
 nav a:hover{
     transition: 0.5s ease;
     background-color: #ada;

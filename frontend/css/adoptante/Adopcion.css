@@ -43,8 +43,6 @@ nav button:hover{
 
 .Contenedor{
     border: solid black 1px;
-    display: grid;
-    grid-template-columns: repeat(3, 33%);
     justify-content: center;
     width: 70%;
     justify-items: center;
@@ -54,6 +52,14 @@ nav button:hover{
     padding: 10px;
 }
 
+#contenedorAnimales{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 33%);
+    justify-self: center;
+    justify-items: center;
+    justify-content: center;
+}
 .Animal {
   border: solid #000 1px;
   padding: 10px;
