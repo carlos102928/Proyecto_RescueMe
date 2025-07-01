@@ -5,8 +5,8 @@ import { registrarDonacion, obtenerReporteDonacionesApi } from '../controllers/d
 const router = express.Router();
 
 
-router.post('/donaciones', registrarDonacion);
+router.post('/', registrarDonacion);
 
-router.get('/refugio/:idRefugio/donaciones-data', obtenerReporteDonacionesApi);
+router.get('/refugio/:idRefugio', obtenerReporteDonacionesApi);
 
 export default router;

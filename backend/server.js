@@ -9,7 +9,8 @@ import userRoutes from './routes/mostrarNombreRoutes.js';
 import refugioRoutes from './routes/refugioRoutes.js';
 import donacionRoutes from './routes/donacionRoutes.js';
 import adoptanteRoutes from './routes/adoptanteRoutes.js';
-import authRefugioRoutes from './routes/authRefugioRoutes.js'
+import authRefugioRoutes from './routes/authRefugioRoutes.js';
+import auditoriaRoutes from './routes/auditoriaRoutes.js'
 
 const app = express();
 app.use(cors());
@@ -23,11 +24,11 @@ app.use('/api/adopciones', adopcionRoutes);
 app.use('/api/animales', animalRoutes);
 app.use('/api', userRoutes);
 app.use('/api/refugio', refugioRoutes);
-app.use('/api', donacionRoutes);
+app.use('/api/donaciones', donacionRoutes);
 app.use('/api/adoptantes', adoptanteRoutes);
-app.use('/api', authRefugioRoutes)
+app.use('/api/auth-refugio', authRefugioRoutes);
 app.use('/api', authRoutes);
-app.use('/api', donacionRoutes)
+app.use('/api/auditoria', auditoriaRoutes);
 
 app.get('/', (req, res) =>{
     res.sendFile(path.join(__dirname, '../frontend/Inicio.html'));

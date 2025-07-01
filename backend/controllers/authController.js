@@ -5,15 +5,32 @@ import {
     obtenerRolPorId
 } from "../models/userModel.js";
 
-export const register = async (req, res) =>{
-    const {nombre, correo, contraseña, id_rol} = req.body
+import { registrarEvento } from "../utils/auditoria.js";
+
+export const register = async (req, res) => {
+  try {
+    const { nombre, correo, contraseña, id_rol } = req.body;
+
     const userExistente = await buscarUsuarioPorCorreo(correo);
-    if (userExistente){
-        return res.status(400).json({message: "Correo ya registrado"});
+    if (userExistente) {
+      return res.status(400).json({ message: "Correo ya registrado" });
     }
+
     const hash = await bcrypt.hash(contraseña, 10);
-    await crearUsuario(nombre, correo, hash, id_rol);
-    res.status(201).json({message: "Usuario creado correctamente"});
+    const idUsuario = await crearUsuario(nombre, correo, hash, id_rol);
+
+    await registrarEvento(
+      "Creación",
+      `Se registró un nuevo usuario con ID ${idUsuario} y correo ${correo}`,
+      idUsuario,
+      "Sistema"
+    );
+
+    res.status(201).json({ message: "Usuario creado correctamente" });
+  } catch (error) {
+    console.error("Error al registrar usuario:", error);
+    res.status(500).json({ message: "Error al registrar usuario" });
+  }
 };
 
 export const login = async (req, res) =>{

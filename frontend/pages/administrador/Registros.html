@@ -3,9 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-        body { display: none;}
-    </style>
     <title>Registros aplicación</title>
     <link rel="stylesheet" href="../../css/administrador/Registros.css">
               <script>
@@ -16,7 +13,6 @@
     </script>
 </head>
 <body>
-    <body>
     <nav class="Inicio">
             <div class="Principal"><a href="./InicioAdmin.html">Rescue Me</a></div>
             <a href="./Adoptantesinf.html">Inf. adoptantes</a>
@@ -38,27 +34,51 @@
         </div>
         <div class="Contenedor">
         <div class="Presentacion">
-            <h6>Registros sistema</h6>
-            <div class="Informacion">
-            <div class="Detalles">
-                <p>2025-05-16 / Registro usuario / id 10 / Carlos / Escobar</p>
-                <p>2025-05-16 / Actualización información / id 10 / Correo / carlosmarioescobar119@gmail.com</p>
-                <p>2025-05-17 / Ingreso información / id refugio 2 / Animales / animales.xclx</p>
-                <p>2025-05-17 / Registro usuario / id 11 / Ana / Correa</p>
-                <p>2025-05-17 / Registro usuario / id 12 / Jesus / Molino</p>
-                <p>2025-05-17 / Actualización información / id 11 / teléfono / 3123894546</p>
-                <p>2025-05-18 / Ingreso información / id refugio 2 / Animales / animales.xclx</p>
-                <p>2025-05-18 / Registro usuario / id 13 / Marta / Nieto</p>
-                <p>2025-05-18 / Registro usuario / id 14 / Luciana / Alvarado</p>
-                <p>2025-05-18 / Actualización información / id 14 / Correo / lucianaalva@gmail.com</p>
-            </div>
-        </div>
-</div>
-</div>
+          <h2>Registro de Cambios en el Sistema</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Tipo de evento</th>
+            <th>Descripción</th>
+            <th>Actor</th>
+            <th>Usuario afectado</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody id="tablaAuditoria"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    async function cargarAuditoria() {
+      try {
+        const res = await fetch("http://localhost:3000/api/auditoria");
+        const eventos = await res.json();
+
+        const tabla = document.getElementById("tablaAuditoria");
+        eventos.forEach(evento => {
+          const fila = document.createElement("tr");
+          fila.innerHTML = `
+                      <td>${evento.tipo_evento}</td>
+            <td>${evento.descripcion}</td>
+            <td>${evento.actor}</td>
+            <td>${evento.usuario_afectado || '-'}</td>
+            <td>${new Date(evento.fecha).toLocaleString()}</td>`
+          ;
+          tabla.appendChild(fila);
+        });
+      } catch (error) {
+        console.error("Error al cargar la auditoría:", error);
+      }
+    }
+
+    cargarAuditoria();
+  </script>
     <script src="../../js/InicioAdmin.js"></script>
     <script src="../../js/verificarSesion.js"></script>
         <script>
   verificarRolPermitido(['administrador'])
   </script>
 </body>
-</html>
+</html> 
