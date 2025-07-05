@@ -38,6 +38,7 @@
         </div>
         <div class="Contenedor">
         <div class="Presentacion">
+            <h2>Gestionar adopción adoptantes</h2>
 <div id="contenedorAdopciones"></div>
 </div>
 </div>
@@ -52,6 +53,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     adopciones.forEach(adopcion => {
         const div = document.createElement('div');
+        div.className = 'interfazGestion'
         const fechaFormateada = new Date(adopcion.fecha).toLocaleDateString('es-CO')
         div.innerHTML = `
             <p>${fechaFormateada} / Adoptante ${adopcion.nombre}  / Animal ID ${adopcion.id_animal} / Animal ${adopcion.animal}</p>

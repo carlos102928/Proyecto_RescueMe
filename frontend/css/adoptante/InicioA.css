@@ -21,6 +21,7 @@ nav button{
     color: #000;
     font-weight: bolder;
     text-align: center;  
+    line-height: 30px;
     font-weight: bolder;
     cursor: pointer;
 }
