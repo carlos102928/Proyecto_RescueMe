@@ -1,18 +1,35 @@
 import { pool } from '../config/db.js';
+
 export const registrarAdopcion = async (req, res) => {
   const { correo, id_animal } = req.body;
 
   try {
-    // Obtener ID del usuario por correo
-    const [usuarios] = await pool.query('SELECT id_usuario FROM usuarios WHERE correo = ?', [correo]);
+    // Obtener ID y nombre del usuario por correo
+    const [usuarios] = await pool.query(
+      'SELECT id_usuario, nombre FROM usuarios WHERE correo = ?',
+      [correo]
+    );
+
     if (usuarios.length === 0) {
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
 
     const id_adoptante = usuarios[0].id_usuario;
+    const nombre = usuarios[0].nombre;
 
     // Insertar adopción
-    await pool.query('INSERT INTO adopcion (id_adoptante, id_animal) VALUES (?, ?)', [id_adoptante, id_animal]);
+    await pool.query(
+      'INSERT INTO adopcion (id_adoptante, id_animal) VALUES (?, ?)',
+      [id_adoptante, id_animal]
+    );
+
+    // Registrar evento de auditoría
+    await registrarEventoAuditoria(
+      'Registro',
+      `El usuario ${nombre} registró una solicitud de adopción para el animal con ID ${id_animal}`,
+      nombre,
+      correo
+    );
 
     res.status(201).json({ message: 'Adopción registrada con éxito' });
   } catch (error) {
@@ -20,27 +37,51 @@ export const registrarAdopcion = async (req, res) => {
     res.status(500).json({ message: 'Error al procesar la adopción' });
   }
 };
-
 export const actualizarEstadoAdopcion = async (req, res) => {
-    const { id_adopcion } = req.params;
-    const { estado } = req.body;
+  const { id_adopcion } = req.params;
+  const { estado } = req.body;
 
-    try {
-        const [result] = await pool.query(
-            'UPDATE adopcion SET estado = ? WHERE id_adopcion = ?',
-            [estado, id_adopcion]
-        );
+  try {
+    // Primero actualiza el estado
+    const [result] = await pool.query(
+      'UPDATE adopcion SET estado = ? WHERE id_adopcion = ?',
+      [estado, id_adopcion]
+    );
 
-        if (result.affectedRows === 0) {
-            return res.status(404).json({ mensaje: "Adopción no encontrada" });
-        }
-
-        res.status(200).json({ mensaje: "Estado actualizado correctamente" });
-    } catch (error) {
-        console.error("Error al actualizar estado:", error);
-        res.status(500).json({ mensaje: "Error del servidor" });
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ mensaje: "Adopción no encontrada" });
     }
+
+    // Luego, obtenemos información del adoptante afectado para la auditoría
+    const [rows] = await pool.query(`
+      SELECT u.nombre, u.correo, a.estado
+      FROM adopcion a
+      JOIN usuarios u ON a.id_adoptante = u.id_usuario
+      WHERE a.id_adopcion = ?
+    `, [id_adopcion]);
+
+    if (rows.length === 0) {
+      return res.status(404).json({ mensaje: "No se encontró la adopción actualizada para auditoría" });
+    }
+
+    const adopcion = rows[0];
+
+    // Registramos el evento en la auditoría
+    await registrarEventoAuditoria(
+      'Actualización',
+      `El administrador actualizó el estado de adopción del usuario ${adopcion.nombre} a "${adopcion.estado}"`,
+      'Administrador',
+      adopcion.correo
+    );
+
+    res.status(200).json({ mensaje: "Estado actualizado correctamente" });
+
+  } catch (error) {
+    console.error("Error al actualizar estado:", error);
+    res.status(500).json({ mensaje: "Error del servidor" });
+  }
 };
+
 
 export const obtenerAdopciones = async (req, res) => {
   try {
@@ -59,6 +100,7 @@ export const obtenerAdopciones = async (req, res) => {
 };
 
 import { obtenerAdopcionesPorUsuario, cancelarAdopcion } from "../models/adopcionModel.js";
+import { registrarEventoAuditoria } from '../models/auditoriaModel.js';
 
 export const getAdopcionesUsuario = async (req, res) => {
   const { id } = req.params;

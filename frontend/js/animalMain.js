@@ -1,6 +1,6 @@
-const API_URL_ANIMAL = 'http://localhost:3000/api/animales'
+const API_URL_ANIMAL = 'http://localhost:3000/api/animales';
+const contenedor = document.getElementById('contenedorAnimales');
 
-const contenedor = document.getElementById('contenedorAnimales')
 fetch(API_URL_ANIMAL)
   .then(response => {
     if (!response.ok) throw new Error("Error en la respuesta de la red");
@@ -8,7 +8,17 @@ fetch(API_URL_ANIMAL)
   })
   .then(data => {
     const listaAnimales = data.animales;
-    console.log("Datos recibidos:", data);
+
+    if (!listaAnimales || listaAnimales.length === 0) {
+      const mensaje = document.createElement('p');
+      mensaje.className = 'mensaje'
+      mensaje.textContent = "No hay animales disponibles actualmente.";
+      mensaje.style.textAlign = "center";
+      mensaje.style.marginTop = "20px";
+      mensaje.style.color = "gray";
+      contenedor.appendChild(mensaje);
+      return;
+    }
 
     listaAnimales.forEach(animal => {
       const card = document.createElement('div');
@@ -43,5 +53,9 @@ fetch(API_URL_ANIMAL)
   })
   .catch(error => {
     console.error("Hubo un problema con la solicitud Fetch:", error);
-    contenedor.textContent = "Error al cargar los datos de animales.";
+    const mensajeError = document.createElement('p');
+    mensajeError.textContent = "Error al cargar los datos de animales.";
+    mensajeError.style.color = "red";
+    mensajeError.style.textAlign = "center";
+    contenedor.appendChild(mensajeError);
   });
