@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config(); 
 import cors from 'cors';
 import express from 'express';
 import path from 'path';
@@ -11,7 +13,6 @@ import donacionRoutes from './routes/donacionRoutes.js';
 import adoptanteRoutes from './routes/adoptanteRoutes.js';
 import authRefugioRoutes from './routes/authRefugioRoutes.js';
 import auditoriaRoutes from './routes/auditoriaRoutes.js'
-
 const app = express();
 app.use(cors());
 app.use(express.json());
