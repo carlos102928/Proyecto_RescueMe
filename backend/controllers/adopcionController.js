@@ -1,48 +1,58 @@
 import { pool } from '../config/db.js';
+import { enviarCorreo } from '../utils/emailService.js';
+
 
 export const registrarAdopcion = async (req, res) => {
   const { correo, id_animal } = req.body;
 
   try {
-    // Obtener ID y nombre del usuario por correo
+    // Obtener datos del usuario
     const [usuarios] = await pool.query(
-      'SELECT id_usuario, nombre FROM usuarios WHERE correo = ?',
+      'SELECT id_usuario, nombre, correo FROM usuarios WHERE correo = ?',
       [correo]
     );
 
-    if (usuarios.length === 0) {
+    if (!usuarios.length) {
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
 
-    const id_adoptante = usuarios[0].id_usuario;
-    const nombre = usuarios[0].nombre;
+    const { id_usuario, nombre, correo: correoDestino } = usuarios[0];
 
     // Insertar adopción
     await pool.query(
       'INSERT INTO adopcion (id_adoptante, id_animal) VALUES (?, ?)',
-      [id_adoptante, id_animal]
+      [id_usuario, id_animal]
     );
 
-    // Registrar evento de auditoría
+    // Auditoría
     await registrarEventoAuditoria(
       'Registro',
       `El usuario ${nombre} registró una solicitud de adopción para el animal con ID ${id_animal}`,
       nombre,
-      correo
+      correoDestino
     );
 
+
+    await enviarCorreo({
+      to: correoDestino, 
+      subject: "Solicitud de adopción recibida",
+      html: `<p>Hola <strong>${nombre}</strong>, tu solicitud de adopción ha sido recibida exitosamente. Pronto se hará envió un correo respecto al estado de tu adopción, gracias por escogernos..</p>`
+    });
+
     res.status(201).json({ message: 'Adopción registrada con éxito' });
+
   } catch (error) {
     console.error("Error al registrar adopción:", error);
     res.status(500).json({ message: 'Error al procesar la adopción' });
   }
 };
+
 export const actualizarEstadoAdopcion = async (req, res) => {
   const { id_adopcion } = req.params;
   const { estado } = req.body;
 
   try {
-    // Primero actualiza el estado
+    // Actualizar estado
     const [result] = await pool.query(
       'UPDATE adopcion SET estado = ? WHERE id_adopcion = ?',
       [estado, id_adopcion]
@@ -52,11 +62,12 @@ export const actualizarEstadoAdopcion = async (req, res) => {
       return res.status(404).json({ mensaje: "Adopción no encontrada" });
     }
 
-    // Luego, obtenemos información del adoptante afectado para la auditoría
+    // Obtener información del usuario
     const [rows] = await pool.query(`
-      SELECT u.nombre, u.correo, a.estado
+      SELECT u.nombre, u.correo, a.estado, an.animal
       FROM adopcion a
       JOIN usuarios u ON a.id_adoptante = u.id_usuario
+      JOIN animales an ON a.id_animal = an.id_animal
       WHERE a.id_adopcion = ?
     `, [id_adopcion]);
 
@@ -66,13 +77,35 @@ export const actualizarEstadoAdopcion = async (req, res) => {
 
     const adopcion = rows[0];
 
-    // Registramos el evento en la auditoría
+    // Auditoría
     await registrarEventoAuditoria(
       'Actualización',
       `El administrador actualizó el estado de adopción del usuario ${adopcion.nombre} a "${adopcion.estado}"`,
       'Administrador',
       adopcion.correo
     );
+
+    // Preparar correo
+    const asunto = `Estado de tu adopción: ${estado}`;
+    let mensajeHTML = `
+      <h2>Hola ${adopcion.nombre},</h2>
+      <p>Tu solicitud de adopción para el animal <strong>${adopcion.animal}</strong> ha sido <strong>${estado.toUpperCase()}</strong>.</p>
+    `;
+
+    if (estado === 'Aceptado') {
+      mensajeHTML += `<p>¡Felicidades! Pronto nos pondremos en contacto contigo para continuar con el proceso</p>`;
+    } else if (estado === 'Denegado') {
+      mensajeHTML += `<p>Lamentablemente, tu solicitud no ha sido aprobada. Agradecemos tu interés y te invitamos a intentar con otro animal más adelante.</p>`;
+    }
+
+    mensajeHTML += `<br><p>Gracias por confiar en <strong>Rescue Me</strong>.</p>`;
+
+    // ✅ Enviar correo
+    await enviarCorreo({
+      to: adopcion.correo,
+      subject: asunto,
+      html: mensajeHTML
+    });
 
     res.status(200).json({ mensaje: "Estado actualizado correctamente" });
 
@@ -81,6 +114,7 @@ export const actualizarEstadoAdopcion = async (req, res) => {
     res.status(500).json({ mensaje: "Error del servidor" });
   }
 };
+
 
 
 export const obtenerAdopciones = async (req, res) => {
@@ -128,3 +162,5 @@ export const eliminarAdopcion = async (req, res) => {
     res.status(500).json({ mensaje: "Error del servidor al cancelar la adopción" });
   }
 };
+
+//Bien chatGPT, entonces con estas medidas el código debería de funcionar de manera correcta o debo de implementar más medidas?
