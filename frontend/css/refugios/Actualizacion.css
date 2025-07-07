@@ -34,7 +34,7 @@ nav button{
     line-height: 30px;
     font-weight: bolder;
     cursor: pointer;
-    width: 90%;
+    width: 96%;
 }
 /**/
 .Presentacion{
@@ -153,7 +153,7 @@ nav a:hover{
 }
 
 
-button{
+ button{
     width: 250px;
     border-radius: 15px;
     border: solid black 1px;

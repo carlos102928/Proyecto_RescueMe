@@ -148,7 +148,7 @@ button{
     border-radius: 15px;
     border: solid black 1px;
     cursor: pointer;
-    background-color: #efe;
+    background-color: #fff;
     margin: 5px 10px;
     width: 150px;
 
@@ -156,7 +156,7 @@ button{
 
 button:hover{
     transition: ease 0.5s;
-    background-color: #ccc;
+    background-color: #ddd;
 }
 
 .menu-container {
@@ -221,6 +221,20 @@ input[type="submit"]{
 input[type="submit"]:hover{
     transition: ease 0.5s;
     background: #bbb;
+}
+
+.interfazGestion{
+    padding: 15px;
+    font-weight: bolder;
+    background-color: #eee;
+    border-radius: 15px;
+    margin: 5px;
+}
+
+
+.interfazGestion select{
+    padding: 5px;
+    border-radius: 15px;
 }
 
 @media (max-width: 768px) {

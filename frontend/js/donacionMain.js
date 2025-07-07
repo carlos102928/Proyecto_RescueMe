@@ -78,8 +78,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         try {
             // Usamos el ID determinado (ya sea de URL o localStorage) para la llamada a la API
-            const response = await fetch(`${API_REPORTE_DONACIONES_BASE}/${idRefugioToLoad}/donaciones-data`);
-
+const response = await fetch(`http://localhost:3000/api/donaciones/refugio/${idRefugioToLoad}`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

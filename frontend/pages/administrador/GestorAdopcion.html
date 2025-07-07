@@ -38,6 +38,7 @@
         </div>
         <div class="Contenedor">
         <div class="Presentacion">
+            <h2>Gestionar adopción adoptantes</h2>
 <div id="contenedorAdopciones"></div>
 </div>
 </div>
@@ -47,26 +48,51 @@ const API_URL_ADOPCIONES = "http://localhost:3000/api/adopciones";
 
 document.addEventListener('DOMContentLoaded', async () => {
     const contenedor = document.getElementById('contenedorAdopciones');
-    const respuesta = await fetch(API_URL_ADOPCIONES);
-    const adopciones = await respuesta.json();
 
-    adopciones.forEach(adopcion => {
-        const div = document.createElement('div');
-        const fechaFormateada = new Date(adopcion.fecha).toLocaleDateString('es-CO')
-        div.innerHTML = `
-            <p>${fechaFormateada} / Adoptante ${adopcion.nombre}  / Animal ID ${adopcion.id_animal} / Animal ${adopcion.animal}</p>
-            <label>Seleccionar estado:</label>
-            <select id="estado-${adopcion.id_adopcion}">
-                <option value="">Seleccionar</option>
-                <option value="Aceptado">Aceptado</option>
-                <option value="Denegado">Denegado</option>
-            </select>
-            <button onclick="actualizarEstado(${adopcion.id_adopcion})">Actualizar</button>
-            <hr>
-        `;
+    try {
+        const respuesta = await fetch(API_URL_ADOPCIONES);
+        if (!respuesta.ok) throw new Error("Error al obtener adopciones");
 
-        contenedor.appendChild(div);
-    });
+        const adopciones = await respuesta.json();
+
+        // Si no hay adopciones, mostrar mensaje
+        if (!adopciones || adopciones.length === 0) {
+            const mensaje = document.createElement('p');
+            mensaje.textContent = "No hay solicitudes de adopción disponibles.";
+            mensaje.style.textAlign = "center";
+            mensaje.style.color = "gray";
+            mensaje.style.marginTop = "20px";
+            contenedor.appendChild(mensaje);
+            return;
+        }
+
+        // Renderizar adopciones
+        adopciones.forEach(adopcion => {
+            const div = document.createElement('div');
+            div.className = 'interfazGestion';
+            const fechaFormateada = new Date(adopcion.fecha).toLocaleDateString('es-CO');
+            div.innerHTML = `
+                <p>${fechaFormateada} / Adoptante ${adopcion.nombre}  / Animal ID ${adopcion.id_animal} / Animal ${adopcion.animal}</p>
+                <label>Seleccionar estado:</label>
+                <select id="estado-${adopcion.id_adopcion}">
+                    <option value="">Seleccionar</option>
+                    <option value="Aceptado">Aceptado</option>
+                    <option value="Denegado">Denegado</option>
+                </select>
+                <button onclick="actualizarEstado(${adopcion.id_adopcion})">Actualizar</button>
+                <hr>
+            `;
+            contenedor.appendChild(div);
+        });
+
+    } catch (error) {
+        console.error("Error al cargar adopciones:", error);
+        const mensaje = document.createElement('p');
+        mensaje.textContent = "Error al cargar las solicitudes de adopción.";
+        mensaje.style.color = "red";
+        mensaje.style.textAlign = "center";
+        contenedor.appendChild(mensaje);
+    }
 });
 
 async function actualizarEstado(idAdopcion) {
@@ -75,20 +101,26 @@ async function actualizarEstado(idAdopcion) {
 
     if (!estado) return alert("Selecciona un estado");
 
-    const respuesta = await fetch(`http://localhost:3000/api/adopciones/${idAdopcion}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ estado })
-    });
+    try {
+        const respuesta = await fetch(`http://localhost:3000/api/adopciones/${idAdopcion}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ estado })
+        });
 
-    const resultado = await respuesta.json();
-    if (respuesta.ok) {
-        alert("Estado actualizado correctamente");
-    } else {
-        alert("Error: " + resultado.mensaje);
+        const resultado = await respuesta.json();
+        if (respuesta.ok) {
+            alert("Estado actualizado correctamente");
+        } else {
+            alert("Error: " + resultado.mensaje);
+        }
+    } catch (error) {
+        console.error("Error al actualizar estado:", error);
+        alert("Error al actualizar el estado");
     }
 }
 </script>
+
 <script src="../../js/InicioAdmin.js"></script>
 <script>document.addEventListener('DOMContentLoaded', () => {
   const botones = document.querySelectorAll('.btn-actualizar');

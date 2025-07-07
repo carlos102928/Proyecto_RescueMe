@@ -5,17 +5,34 @@ import {
   obtenerRolPorId
 } from "../models/refugioModel.js";
 
+import { registrarEventoAuditoria } from "../models/auditoriaModel.js";
+
 export const registerRefugio = async (req, res) => {
   const { nombre_refugio, direccion, correo, contraseña, id_rol } = req.body;
 
-  const refugioExistente = await buscarRefugioPorCorreo(correo);
-  if (refugioExistente) {
-    return res.status(400).json({ message: "Correo ya registrado" });
-  }
+  try {
+    const refugioExistente = await buscarRefugioPorCorreo(correo);
+    if (refugioExistente) {
+      return res.status(400).json({ message: "Correo ya registrado" });
+    }
 
-  const hash = await bcrypt.hash(contraseña, 10);
-  await crearRefugio(nombre_refugio, direccion, correo, hash, id_rol);
-  res.status(201).json({ message: "Refugio registrado correctamente" });
+    const hash = await bcrypt.hash(contraseña, 10);
+    await crearRefugio(nombre_refugio, direccion, correo, hash, id_rol);
+
+    // 📘 Auditoría del registro
+    await registrarEventoAuditoria(
+      'Registro',
+      `Se registró el refugio "${nombre_refugio}" con correo "${correo}"`,
+      nombre_refugio, // Actor: el nombre del refugio
+      correo // Usuario afectado: su correo
+    );
+
+    res.status(201).json({ message: "Refugio registrado correctamente" });
+
+  } catch (error) {
+    console.error("Error al registrar refugio:", error);
+    res.status(500).json({ message: "Error del servidor al registrar refugio" });
+  }
 };
 
 export const loginRefugio = async (req, res) => {

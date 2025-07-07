@@ -51,10 +51,11 @@ document.getElementById('logoutBtn').addEventListener('click', () => {
     const refugio = await res.json();
 
     if (res.ok) {
-      document.getElementById('infoRefugio').innerHTML = `
+      document.getElementById('infoRefugio').innerHTML = `<div class = "infRefugio">
         <p><strong>Nombre del Refugio:</strong> ${refugio.nombre_refugio}</p>
         <p><strong>Dirección:</strong> ${refugio.direccion}</p>
         <p><strong>Correo:</strong> ${refugio.correo}</p>
+        </div>
       `;
     } else {
       document.getElementById('infoRefugio').textContent = refugio.message;

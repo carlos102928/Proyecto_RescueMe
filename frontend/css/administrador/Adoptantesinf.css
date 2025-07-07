@@ -122,7 +122,6 @@ nav button:hover{
     margin: 30px;
     padding: 10px;
     justify-self: center;
-    height: 400px;
 }
 
 nav a:hover{
@@ -308,6 +307,7 @@ tr:hover {
       margin: 10px 0;
     }
   
+
     .Detalles h4,
     .Detalles1 h4 {
       font-size: 16px;
@@ -337,12 +337,12 @@ tr:hover {
     }
 
     .adoptante-item select{
-      width: 70%;
+      width: 100%;
       text-align: center;
     }
 
     .adoptante-item button{
-      width: 70%;
+      width: 100%;
     }
   }
   

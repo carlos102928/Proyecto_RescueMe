@@ -1,6 +1,7 @@
 import { getRefugios, getRefugioById } from '../models/refugioModel.js';
 import { pool } from '../config/db.js';
 import bcrypt from 'bcrypt'
+import { registrarEventoAuditoria } from '../models/auditoriaModel.js';
 
 export const obtenerRefugios = async (req, res) => {
     try {
@@ -54,12 +55,21 @@ export const eliminarRefugio = async (req, res) => {
   const { id } = req.params;
 
   try {
+    const [rows] = await pool.query('select id_refugio, nombre_refugio, correo from refugio where id_refugio = ?', [id])
     const [result] = await pool.query("DELETE FROM refugio WHERE id_refugio = ?", [id]);
 
     if (result.affectedRows === 0) {
       return res.status(404).json({ mensaje: "Refugio no encontrado" });
     }
+    
+    const refugio = rows[0];
 
+    await registrarEventoAuditoria(
+      'Eliminación',
+      `El adminsitrador eliminó al refugio con id ${refugio.id_refugio} y nombre ${refugio.nombre_refugio}`,
+      'Adminstrador',
+      refugio.correo
+    )
     res.status(200).json({ mensaje: "Refugio eliminado correctamente" });
   } catch (error) {
     console.error("Error al eliminar refugio:", error);

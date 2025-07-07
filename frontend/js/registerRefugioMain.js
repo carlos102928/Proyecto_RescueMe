@@ -9,7 +9,7 @@ document.getElementById('registerRefugioForm').addEventListener('submit', async 
   // ID de rol "refugio", asegúrate de que sea el correcto en tu tabla de roles
   const id_rol = 3;
 
-  const res = await fetch('http://localhost:3000/api/register-refugio', {
+  const res = await fetch('http://localhost:3000/api/auth-refugio/register-refugio', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({

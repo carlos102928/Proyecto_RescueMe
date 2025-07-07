@@ -64,6 +64,16 @@
         const response = await fetch(API_URL_ADOPTANTES_ADMIN);
         const adoptantes = await response.json();
 
+        if (!adoptantes || adoptantes.lenght === 0){
+            const mensaje = document.createElement('p');
+            mensaje.textContent = "No hay usuarios en la aplicación";
+            mensaje.style.textAlign = "center";
+            mensaje.style.color = "gray";
+            mensaje.style.marginTop = "20px";
+            contenedor.appendChild(mensaje);
+            return;
+
+        }
         const lista = document.getElementById('listaAdoptantes');
         lista.innerHTML = '';
         
