@@ -21,7 +21,9 @@ nav{
 }
 
 nav button{
-        border: solid black 1px;
+    font-weight: bolder;
+    font-size: 15px;
+    border: solid black 1px;
     text-decoration: none;
     display: block;
     margin: 10px;

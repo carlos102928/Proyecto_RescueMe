@@ -31,21 +31,26 @@ document.getElementById('logoutBtn').addEventListener('click', () => {
     </nav>
     <div class="Contenedor">
     <div class="detalle-contenedor">
-    <img id="imagenAnimal" src="" alt="Imagen del animal">
+    <div class="general"><img id="imagenAnimal" src="" alt="Imagen del animal"> <br>
     <h2 id="nombreAnimal"></h2>
     <p id="razaAnimal"></p>
     <p id="refugioAnimal"></p>
     </div>
+    </div>
 
 <form id="formAdopcion">
   <input type="checkbox" id="checkboxCompromiso" required>
-  <em><b>Al marcar esta casilla, aceptas lo siguiente</b> <br>
-    Te comprometes a brindar un hogar seguro, amoroso y responsable <br>
-    No se permitirá la reventa ni el abandono del animal bajo ninguna circunstancia. <br>
-    Te comprometes a proporcionar atención veterinaria regular y adecuada. <br>
-    En caso de no poder cuidar al animal, deberás notificar al refugio para su reubicación. <br>
+  <em><b>Al marcar esta casilla, aceptas lo siguiente</b><br>
+    Te comprometes a brindar un hogar seguro, amoroso y responsable.<br>
+    No se permitirá la reventa ni el abandono del animal bajo ninguna circunstancia.<br>
+    Te comprometes a proporcionar atención veterinaria regular y adecuada.<br>
+    En caso de no poder cuidar al animal, deberás notificar al refugio para su reubicación.<br>
     Aceptas que el refugio puede hacer seguimiento posterior a la adopción para asegurar el bienestar del animal.
   </em>
+
+  <label for="intenciones"><b>¿Por qué deseas adoptar este animal?</b></label><br>
+  <textarea id="intenciones" name="intenciones" rows="5" cols="50" required placeholder="Escribe aquí tus motivos..." required></textarea>
+
   <div class="input-1">
     <input type="submit" value="¡Adopta!">
   </div>

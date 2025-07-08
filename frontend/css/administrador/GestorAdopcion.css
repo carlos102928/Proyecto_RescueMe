@@ -21,6 +21,8 @@ nav{
 }
 
 nav button{
+        font-weight: bolder;
+    font-size: 15px;
         border: solid black 1px;
     text-decoration: none;
     display: block;
@@ -103,7 +105,6 @@ nav button:hover{
     border-radius: 4px;
     margin: 10px 0;
     border: black solid 1px;
-    font-weight: bolder;
 }
 
 nav a{
@@ -236,6 +237,59 @@ input[type="submit"]:hover{
     padding: 5px;
     border-radius: 15px;
 }
+
+#contenedorAdopciones {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.interfazGestion {
+    background-color: #f8fff8;
+    border: 1px solid #aaa;
+    border-left: 8px solid #4caf50;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.interfazGestion p {
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #333;
+}
+
+.interfazGestion label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.interfazGestion select {
+    width: 200px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.interfazGestion button {
+    margin-top: 5px;
+    background-color: #4caf50;
+    color: white;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    width: auto;
+}
+
+.interfazGestion button:hover {
+    background-color: #45a049;
+}
+
 
 @media (max-width: 768px) {
     body{

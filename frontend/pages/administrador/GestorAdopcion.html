@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             div.className = 'interfazGestion';
             const fechaFormateada = new Date(adopcion.fecha).toLocaleDateString('es-CO');
             div.innerHTML = `
-                <p>${fechaFormateada} / Adoptante ${adopcion.nombre}  / Animal ID ${adopcion.id_animal} / Animal ${adopcion.animal}</p>
+                <p><strong>${fechaFormateada}</strong> <br> <strong>Adoptante:</strong> ${adopcion.nombre}<br> <strong>Animal ID:</strong> ${adopcion.id_animal} <br> <strong>Animal:</strong> ${adopcion.animal} <br> <strong>Intenciones:</strong> ${adopcion.intenciones}</p>
                 <label>Seleccionar estado:</label>
                 <select id="estado-${adopcion.id_adopcion}">
                     <option value="">Seleccionar</option>

@@ -62,3 +62,4 @@ export const actualizarRolUsuario = async (req, res) => {
     res.status(500).json({ mensaje: "Error del servidor al actualizar el rol" });
   }
 };
+

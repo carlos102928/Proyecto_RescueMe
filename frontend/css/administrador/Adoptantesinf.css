@@ -5,7 +5,225 @@ body{
     background-color: #9e96;
     background-image: url(../../images/fondo_huellas_perro.png);
     background-repeat: repeat;
-    font-family: sans-serif;
+    font-family: sans-serif;body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background-color: #9e96;
+  background-image: url(../../images/fondo_huellas_perro.png);
+  background-repeat: repeat;
+  font-family: sans-serif;
+}
+
+#listaAdoptantes {
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Tarjeta adoptante */
+.adoptante-item {
+  background-color: #ffffffdd;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid #ccc;
+  transition: transform 0.3s ease;
+}
+
+.adoptante-item:hover {
+  transform: scale(1.02);
+}
+
+.adoptante-item p {
+  margin: 10px 0;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #e7fce7;
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid #aaa;
+}
+
+/* Botones y select */
+.adoptante-item button,
+.adoptante-item select {
+  display: inline-block;
+  margin: 8px 5px 0 0;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.adoptante-item button {
+  background-color: #57b657;
+  color: white;
+}
+
+.adoptante-item button:hover {
+  background-color: #3e8e41;
+}
+
+.adoptante-item select {
+  background-color: #f0f0f0;
+}
+
+.adoptante-item select:hover {
+  background-color: #e0e0e0;
+}
+
+/* Barra de navegación */
+nav {
+  border: 1px solid black;
+  display: grid;
+  grid-template-columns: 40% repeat(3, 20%);
+  padding: 10px 20px;
+  width: 70%;
+  margin: 20px auto;
+  background-color: #94ef94ff;
+  border-radius: 10px;
+}
+
+nav a, nav button {
+  text-decoration: none;
+  background-color: #bfb;
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid black;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+  margin: 5px;
+}
+
+nav a:hover, nav button:hover {
+  background-color: #ada;
+  transition: 0.3s ease;
+}
+
+.Principal a {
+  font-size: 25px;
+  font-family: "Lucida Handwriting", "Dancing Script", cursive;
+}
+
+/* Contenedor general */
+.Contenedor {
+  width: 80%;
+  margin: 20px auto;
+  padding: 20px;
+  background: linear-gradient(to right, #8d8, #9e9);
+  border-radius: 15px;
+  border: 1px solid black;
+  text-align: center;
+}
+
+/* Tabla inferior */
+table {
+  width: 90%;
+  margin: 30px auto;
+  border-collapse: collapse;
+  background: #ddd;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+th, td {
+  padding: 15px;
+  border-bottom: 1px solid #bbb;
+}
+
+th {
+  background: #777;
+  color: white;
+  font-size: 1.1rem;
+}
+
+td {
+  font-size: 1rem;
+  color: #444;
+  text-align: center;
+}
+
+tr:hover {
+  background-color: #ffe3ed;
+}
+
+/* Menú lateral */
+.menu-container {
+  position: relative;
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.menu-button {
+  background-color: #7c7;
+  color: black;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  margin: 15px 0;
+}
+
+.menu-button:hover {
+  background-color: #9d9;
+  transition: 0.5s ease;
+}
+
+.menu {
+  display: none;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  min-width: 150px;
+  margin-top: 5px;
+  padding: 5px 0;
+}
+
+.menu a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+}
+
+.menu a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  nav {
+    grid-template-columns: 1fr;
+    width: 90%;
+  }
+
+  .Contenedor {
+    width: 95%;
+  }
+
+  .menu-container {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  #listaAdoptantes {
+    grid-template-columns: 1fr;
+    padding: 10px;
+  }
+
+  .adoptante-item button, .adoptante-item select {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
     justify-content: center;
 }
 
@@ -101,6 +319,8 @@ nav button:hover{
     margin: 10px;
     border-radius: 10px;
     justify-self: center;
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
 }
 
 .Principal a{

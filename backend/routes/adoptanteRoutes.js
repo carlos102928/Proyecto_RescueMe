@@ -4,6 +4,6 @@ const router = express.Router();
 
 router.get("/", obtenerAdoptantes);
 router.put('/:id/rol', actualizarRolUsuario);
-router.delete('/:id', eliminarUsuario)
+router.delete('/:id', eliminarUsuario);
 
 export default router;

@@ -11,6 +11,8 @@ body{
 }
 
 nav button{
+      font-weight: bolder;
+    font-size: 15px;
         border: solid black 1px;
     text-decoration: none;
     display: block;
@@ -49,13 +51,15 @@ nav{
     background-color: #b1efb1;
     padding: 30px;
     margin: 10px;
-    border-radius: 10px;
+    border-radius: 10px;  
 }
 
 .Presentacion p{
     margin: 5px;
     font-size: 18px;
+    flex: 2;
 }
+
 
 .Contenedor{
     border: solid black 1px;
@@ -67,6 +71,10 @@ nav{
     padding: 10px;
 }
 
+.Contenido{
+  display: grid;
+  grid-template-columns: 60% 50%;
+}
 .Presentacion p{
         padding: 10px;
         margin: 10px;
@@ -107,6 +115,15 @@ nav a{
 nav a:hover{
     transition: 0.5s ease;
     background-color: #ada;
+}
+
+.Presentacion img{
+  width: 70%;
+  height: 250px;
+  border-radius: 15px;
+  border: solid black 1px;
+  align-self: top;
+  margin: 10px;
 }
 
 

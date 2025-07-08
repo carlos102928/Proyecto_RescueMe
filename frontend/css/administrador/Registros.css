@@ -20,6 +20,8 @@ nav{
 }
 
 nav button{
+      font-weight: bolder;
+    font-size: 15px;
         border: solid black 1px;
     text-decoration: none;
     display: block;
@@ -42,7 +44,7 @@ nav button:hover{
 
 .Presentacion{
     border: solid black 1px;
-    width: 80%;
+    width: 90%;
     background-color: #b1efb1;
     padding: 30px;
     margin: 10px;
@@ -57,7 +59,7 @@ nav button:hover{
 
 .Contenedor{
     border: solid black 1px;
-    width: 70%;
+    width: 80%;
     justify-items: center;
     background: linear-gradient(to right, #8d8,#9e9);
     border-radius: 15px;
@@ -213,9 +215,13 @@ td {
     .Principal a {
       font-size: 20px;
     }
+
+    td, tr{
+      padding: 2px;
+    }
   
     .Presentacion {
-      width: 400px;
+      width: 900px;
       padding: 20px;
     }
   
@@ -228,7 +234,7 @@ td {
     }
   
     .Contenedor {
-      width: 450px;
+      width: 1050px;
       padding: 15px;
       margin: 20px auto;
     }

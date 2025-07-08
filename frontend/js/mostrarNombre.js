@@ -29,7 +29,16 @@ async function CargarNombreUsuarioLogueadoDesdeDB() {
         const data = await response.json();
 
         if (data && data.nombre) {
-            contenedor.innerHTML = `<h4> Hola, ${data.nombre}</h4>`;
+
+if (data && data.nombre) {
+    contenedor.innerHTML = `
+      <h4>
+        <a href="../adoptante/PerfilUsuario.html" style="text-decoration: none; color: #2e7d32;">
+          Hola, ${data.nombre}
+        </a>
+      </h4>
+    `;
+};
         } else {
             contenedor.innerHTML = '<p>Nombre de usuario no disponible.</p>';
             localStorage.removeItem('correo');

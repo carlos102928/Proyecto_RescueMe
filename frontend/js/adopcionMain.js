@@ -16,41 +16,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 })
 
-document.getElementById('formAdopcion').addEventListener('submit', async (e) => {
+document.getElementById('formAdopcion').addEventListener('submit', async function (e) {
   e.preventDefault();
 
   const checkbox = document.getElementById('checkboxCompromiso');
-  if (!checkbox.checked) {
-    alert("Debes aceptar el compromiso antes de adoptar.");
-    return;
-  }
-
+  const intenciones = document.getElementById('intenciones').value.trim();
   const correo = localStorage.getItem('correo');
-  const params = new URLSearchParams(window.location.search);
-  const id_animal = params.get('id_animal');
 
-  if (!correo || !id_animal) {
-    alert("Faltan datos para realizar la adopción.");
+  if (!checkbox.checked || !intenciones) {
+    alert("Debes aceptar el compromiso y escribir tus intenciones para continuar.");
     return;
   }
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const id_animal = urlParams.get('id_animal'); // ✅ corrección previa
 
   try {
-    const res = await fetch('http://localhost:3000/api/adopciones', {
+    const response = await fetch('http://localhost:3000/api/adopciones', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ correo, id_animal })
+      body: JSON.stringify({ id_animal, correo, intenciones })
     });
 
-    const data = await res.json();
+    const data = await response.json();
 
-    if (res.ok) {
-      alert("¡Solicitud de adopción enviada exitosamente!");
-      window.location.href = "./AdopcionRe.html"; // redirección opcional
+    if (response.ok) {
+      alert(data.message || "Solicitud enviada con éxito");
+      // ✅ Redirigir a página de adopción en proceso
+      window.location.href = './AdopcionRe.html';
     } else {
-      alert(data.message || "Ocurrió un error.");
+      alert(data.message || "Hubo un error al enviar la solicitud.");
     }
   } catch (error) {
-    console.error("Error al enviar la solicitud:", error);
-    alert("Error de red o del servidor.");
+    console.error("Error al enviar adopción:", error);
+    alert("Error al enviar la solicitud.");
   }
 });

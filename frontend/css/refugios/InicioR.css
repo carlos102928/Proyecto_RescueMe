@@ -97,6 +97,8 @@ nav button{
     line-height: 30px;
     font-weight: bolder;
     cursor: pointer;
+    font-weight: bolder;
+    font-size: 15px;
 }
 
 nav button{

@@ -40,6 +40,8 @@ a>button{
 }
 
 nav button{
+      font-weight: bolder;
+    font-size: 15px;
         border: solid black 1px;
     text-decoration: none;
     display: block;
