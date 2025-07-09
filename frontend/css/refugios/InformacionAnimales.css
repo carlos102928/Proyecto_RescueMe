@@ -1,0 +1,227 @@
+body{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color: #9e96;
+    background-image: url(../../images/fondo_huellas_perro.png);
+    background-repeat: repeat;
+    font-family: sans-serif;
+    justify-content: center;
+    justify-items: center;
+}
+
+nav{
+    border: solid black 1px;
+    display: grid;
+    grid-template-columns: 28% repeat(4, 18%);
+    padding: 10px 20px;
+    width: 70%;
+    background-color: #94ef94ff;
+    border-radius: 10px;
+}
+
+nav button{
+      font-weight: bolder;
+    font-size: 15px;
+        border: solid black 1px;
+    text-decoration: none;
+    display: block;
+    margin: 10px;
+    background-color: #bfb;
+    padding: 8px;
+    border-radius: 10px;
+    color: #000;
+    font-weight: bolder;
+    text-align: center;  
+    line-height: 30px;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+nav button:hover{
+    transition: 0.5s ease;
+    background-color: #ada;
+}
+
+nav a{
+    border: solid black 1px;
+    text-decoration: none;
+    display: block;
+    margin: 10px;
+    background-color: #bfb;
+    padding: 8px;
+    border-radius: 10px;
+    color: #000;
+    font-weight: bolder;
+    text-align: center;  
+    line-height: 30px;
+}
+
+.Contenedor{
+    border: solid black 1px;
+    justify-content: center;
+    width: 70%;
+    justify-items: center;
+    background: linear-gradient(to right, #8d8,#9e9);
+    border-radius: 15px;
+    margin: 30px;
+    padding: 10px;
+}
+.Presentacion {
+  background-color: #ffffffd9;
+  margin: 30px auto;
+  padding: 30px;
+  width: 85%;
+  border-radius: 15px;
+  box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.Presentacion h6 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #2e7d32;
+  border-bottom: 2px solid #66bb6a;
+  padding-bottom: 10px;
+}
+
+.Presentacion p {
+  font-size: 17px;
+  color: #333;
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+
+
+.contenedorAnimales {
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  gap: 25px;
+  padding: 20px;
+}
+
+.animal-card {
+  background-color: #ffffffde;
+  border: 2px solid #aed581;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.animal-card:hover {
+  transform: scale(1.03);
+}
+
+.animal-card img {
+  width: 90%;
+  height: auto;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+}
+
+.animal-card button {
+  background-color: #81c784;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.animal-card button:hover {
+  background-color: #66bb6a;
+}
+
+
+.Informacion {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.Detalles,
+.Detalles1 {
+  flex: 1;
+  background-color: #f9fbe7;
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid #c5e1a5;
+}
+
+.Detalles h4,
+.Detalles1 h4 {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #dcedc8;
+  border-radius: 8px;
+  border: 1px solid #c5e1a5;
+  color: #33691e;
+}
+
+
+.perfil-animal {
+  background-color: #f1f8e9;
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid #a5d6a7;
+  width: 80%;
+  margin-top: 20px;
+  justify-self: center;
+}
+
+.perfil-animal p {
+  font-size: 16px;
+  color: #444;
+}
+
+/* ======== RESPONSIVO ======== */
+@media (max-width: 768px) {
+      body {
+      width: 700px;
+    }
+  
+    nav {
+      display: flex;
+      flex-direction: column;
+      width: 500px;
+      padding: 10px;
+      text-align: center;
+    }
+  
+    nav a {
+      font-size: 16px;
+      margin: 5px 0;
+    }
+
+  .Presentacion h6 {
+    font-size: 20px;
+  }
+
+  .Presentacion p {
+    font-size: 16px;
+  }
+
+  .animal-card {
+    padding: 15px;
+  }
+
+  .animal-card img {
+    width: 100%;
+  }
+
+  .Informacion {
+    flex-direction: column;
+  }
+
+  .Detalles,
+  .Detalles1 {
+    width: 100%;
+  }
+}

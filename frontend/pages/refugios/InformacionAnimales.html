@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <style>
+        body { display: none;}
+    </style>
+    <title>Datos Refugio</title>
+    <link rel="stylesheet" href="../../css/refugios/InformacionAnimales.css">
+                  <script>
+    const rol = localStorage.getItem('rol');
+    if (!rol || rol !== 'refugio') {
+      window.location.replace('../inicio/login.html');
+    }
+    </script>
+</head>
+<body>
+    <body>
+        <nav class="Inicio">
+            <div class="Principal"><a href="InicioR.html">Rescue Me</a></div>
+            <a href="./DatosR.html">Datos refugio</a>
+            <a href="./DonacionR.html">Donaciones</a>
+            <a href="./InformacionAnimales.html">Información animales</a>
+            <button id="logoutBtn">Cerrar sesión</button>
+            <script>
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  localStorage.clear();
+  window.location.replace('../../Inicio.html');
+});
+</script>
+</nav>
+        <div class="Contenedor">
+            <div class="Presentacion">
+              <h2>Estado animales</h2>
+                <div id="contenedorAnimales" class="contenedorAnimales"></div>
+            </div>
+        </div>
+        <script>
+  const correo = localStorage.getItem('correo');
+  const contenedor = document.getElementById('contenedorAnimales');
+
+  if (!correo) {
+    alert('No se encontró sesión activa.');
+    window.location.replace('../../Inicio.html');
+  }
+
+  // Obtener el ID del refugio con el correo
+fetch(`http://localhost:3000/api/refugio/mi-info?correo=${encodeURIComponent(correo)}`)
+  .then(res => res.json())
+  .then(refugio => {
+    if (!refugio || !refugio.id_refugio) {
+      throw new Error('No se pudo obtener el ID del refugio.');
+    }
+
+    const idRefugio = refugio.id_refugio;
+
+    return fetch(`http://localhost:3000/api/animales/refugio/${idRefugio}`);
+  })
+    .then(res => res.json())
+    .then(animales => {
+      animales.forEach(animal => {
+        const card = document.createElement('div');
+        card.classList.add('animal-card');
+
+        card.innerHTML = `
+          <img src="${animal.imagen_url}" alt="Foto de ${animal.animal}" width="200">
+          <div class="perfil-animal">
+            <h3>${animal.animal}</h3>
+            <p>Raza: ${animal.raza}</p>
+            <p>Vacuna: ${animal.id_vacunas}</p>
+            <p>Estado: ${animal.estado}</p>
+          </div>
+        `;
+
+        contenedor.appendChild(card);
+      });
+    })
+    .catch(error => {
+      console.error('Error al cargar animales del refugio:', error);
+      contenedor.innerHTML = `<p style="color:red">No se pudieron cargar los animales del refugio.</p>`;
+    });
+</script>
+
+</div>
+</div>
+<script src="../../js/verificarSesion.js"></script>
+<script>
+  verificarRolPermitido(['refugio'])
+</script>
+</body>
+</html>

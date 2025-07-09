@@ -12,7 +12,7 @@ body{
 nav{
     border: solid black 1px;
     display: grid;
-    grid-template-columns: 35% repeat(3, 22%);
+    grid-template-columns: 28% repeat(4, 18%);
     padding: 10px 20px;
     width: 70%;
     background-color: #94ef94ff;
@@ -101,6 +101,12 @@ h4{
     padding: 7px 10px;
     cursor: pointer;
     width: 150px;
+    display: block;
+    justify-self: center;
+}
+
+.Actualizacion a{
+  text-decoration: none;
 }
 
 button:hover{

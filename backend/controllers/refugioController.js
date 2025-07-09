@@ -76,3 +76,27 @@ export const eliminarRefugio = async (req, res) => {
     res.status(500).json({ mensaje: "Error del servidor al eliminar refugio" });
   }
 };
+
+export const obtenerRefugioPorCorreo = async (req, res) => {
+  const { correo } = req.query;
+
+  if (!correo) {
+    return res.status(400).json({ mensaje: 'Correo es requerido' });
+  }
+
+  try {
+    const [rows] = await pool.query(
+      'SELECT id_refugio, nombre_refugio, direccion, correo FROM refugio WHERE correo = ?',
+      [correo]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({ mensaje: 'Refugio no encontrado con ese correo' });
+    }
+
+    res.status(200).json(rows[0]);
+  } catch (error) {
+    console.error('Error al obtener info del refugio:', error);
+    res.status(500).json({ mensaje: 'Error interno del servidor' });
+  }
+};

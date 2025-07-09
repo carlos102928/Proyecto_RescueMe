@@ -12,7 +12,7 @@ import refugioRoutes from './routes/refugioRoutes.js';
 import donacionRoutes from './routes/donacionRoutes.js';
 import adoptanteRoutes from './routes/adoptanteRoutes.js';
 import authRefugioRoutes from './routes/authRefugioRoutes.js';
-import auditoriaRoutes from './routes/auditoriaRoutes.js'
+import auditoriaRoutes from './routes/auditoriaRoutes.js';
 const app = express();
 app.use(cors());
 app.use(express.json());
