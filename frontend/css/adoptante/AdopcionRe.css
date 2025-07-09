@@ -111,6 +111,19 @@ nav a:hover{
     background-color: #ada;
 }
 
+#nombreUsuario{
+  padding: 2px;
+  border-radius: 15px;
+  border: solid black 1px;
+  justify-self: left;
+  background-color: #9e9;
+  margin: 10px;
+}
+
+#nombreUsuario:hover{
+  transition: ease 0.5s;
+  background-color: #8d8;
+}
 
 /* para pantallas menores entre 1200 a 768*/
 @media (max-width: 1250px) {

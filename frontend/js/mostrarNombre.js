@@ -33,8 +33,8 @@ async function CargarNombreUsuarioLogueadoDesdeDB() {
 if (data && data.nombre) {
     contenedor.innerHTML = `
       <h4>
-        <a href="../adoptante/PerfilUsuario.html" style="text-decoration: none; color: #2e7d32;">
-          Hola, ${data.nombre}
+        <a href="../adoptante/PerfilUsuario.html" style="text-decoration: none; color: #000;">
+          Bienvenido, ${data.nombre}
         </a>
       </h4>
     `;

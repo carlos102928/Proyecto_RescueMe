@@ -70,6 +70,7 @@ nav a{
     margin: 10px;
     border-radius: 10px;
     justify-self: center;
+    text-align: center;
 }
 
 .Presentacion p{
@@ -253,6 +254,17 @@ tr:hover {
     background-color: none;
 }
 
+td button{
+    border-radius: 15px;
+    padding: 4px;
+    cursor: pointer;
+}
+
+td button:hover{
+    transition: 0.5s ease;
+    background-color: #ddd;
+}
+
 @media (max-width: 768px) {
     body {
       width: 700px;
@@ -272,7 +284,7 @@ tr:hover {
     }
   
     .Presentacion {
-      width: 400px;
+      width: 500px;
       padding: 20px;
     }
   
@@ -288,7 +300,7 @@ tr:hover {
     }
   
     .Contenedor {
-      width: 450px;
+      width: 550px;
       margin: 20px auto;
       padding: 15px;
     }

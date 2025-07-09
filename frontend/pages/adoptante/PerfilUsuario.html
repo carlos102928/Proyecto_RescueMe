@@ -1,4 +1,3 @@
-<!-- PerfilUsuario.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -20,25 +19,42 @@
     <a href="Donacion.html">Donaciones</a>
     <a href="inf_Refugios.html">Refugios</a>
     <button id="logoutBtn">Cerrar sesión</button>
+    <script>
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  localStorage.clear();
+  window.location.replace('../../Inicio.html');
+});
+</script>
   </nav>
-
+  <div class="" id="nombreUsuario"></div>
   <div class="ContenedorPerfil">
     <h2>Tu Perfil</h2>
-    <form id="formPerfil">
+
+    <div class="cardPerfil">
       <label for="nombre">Nombre:</label>
-      <input type="text" id="nombre" name="nombre" required/>
+      <input type="text" id="nombre" />
+      <button onclick="actualizarCampo('nombre')">Actualizar nombre</button>
+    </div>
 
+    <div class="cardPerfil">
       <label for="correo">Correo:</label>
-      <input type="email" id="correo" name="correo" disabled />
+      <input type="email" id="correo" />
+      <button onclick="actualizarCampo('correo')">Actualizar correo</button>
+    </div>
 
-      <label for="contrasena">Nueva contraseña:</label>
-      <input type="password" id="contrasena" name="contrasena"/>
+    <div class="cardPerfil">
+      <label for="contraseña">Nueva contraseña:</label>
+      <input type="password" id="contraseña" />
+      <button onclick="actualizarCampo('contraseña')">Actualizar contraseña</button>
+    </div>
 
-      <button type="submit">Guardar cambios</button>
-    </form>
     <div id="mensajePerfil"></div>
   </div>
-
   <script src="../../js/perfilUsuario.js"></script>
+  <script src="../../js/mostrarNombre.js"></script>
+    <script src="../../js/verificarSesion.js"></script>   
+  <script>
+  verificarRolPermitido(['adoptante'])
+  </script>
 </body>
 </html>

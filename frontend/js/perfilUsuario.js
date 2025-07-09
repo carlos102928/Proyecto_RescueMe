@@ -1,12 +1,11 @@
-const API_MI_INFO = "http://localhost:3000/api/mi-info";
-const API_ACTUALIZAR = "http://localhost:3000/api/mi-info/actualizar";
+const API_MI_INFO = "http://localhost:3000/api/adoptantes/perfil";
+const API_ACTUALIZAR_CAMPO = "http://localhost:3000/api/adoptantes/actualizar-campo";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const correo = localStorage.getItem("correo");
   if (!correo) {
-    alert("No se encontró sesión activa.");
-    window.location.replace("../../Inicio.html");
-    return;
+    alert("Sesión inválida.");
+    return window.location.replace("../../Inicio.html");
   }
 
   try {
@@ -14,32 +13,46 @@ document.addEventListener("DOMContentLoaded", async () => {
     const data = await res.json();
 
     document.getElementById("nombre").value = data.nombre;
-    document.getElementById("correo").value = correo;
+    document.getElementById("correo").value = data.correo;
 
   } catch (error) {
-    console.error("Error al cargar perfil:", error);
+    console.error("Error al obtener datos del usuario:", error);
   }
 });
 
-document.getElementById("formPerfil").addEventListener("submit", async (e) => {
-  e.preventDefault();
-
+async function actualizarCampo(campo) {
   const correo = localStorage.getItem("correo");
-  const nombre = document.getElementById("nombre").value;
-  const contrasena = document.getElementById("contrasena").value;
+  let valor;
+
+  switch (campo) {
+    case "nombre":
+      valor = document.getElementById("nombre").value;
+      break;
+    case "correo":
+      valor = document.getElementById("correo").value;
+      break;
+    case "contraseña":
+      valor = document.getElementById("contraseña").value;
+      break;
+    default:
+      return;
+  }
 
   try {
-    const res = await fetch(API_ACTUALIZAR, {
+    const res = await fetch(API_ACTUALIZAR_CAMPO, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ correo, nombre, contrasena }),
+      body: JSON.stringify({ correoActual: correo, campo, valor })
     });
 
     const data = await res.json();
-    document.getElementById("mensajePerfil").innerText = data.mensaje || "Actualización exitosa";
+    document.getElementById("mensajePerfil").innerText = data.mensaje;
 
+    if (campo === "correo") {
+      localStorage.setItem("correo", valor); // actualizar localStorage
+    }
   } catch (error) {
-    console.error("Error al actualizar perfil:", error);
-    document.getElementById("mensajePerfil").innerText = "Hubo un error al actualizar.";
+    console.error("Error actualizando:", error);
+    document.getElementById("mensajePerfil").innerText = "Error al actualizar.";
   }
-});
+}

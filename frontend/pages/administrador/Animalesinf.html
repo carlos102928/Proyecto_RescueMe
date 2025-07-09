@@ -38,7 +38,8 @@
         </div>
         <div class="Contenedor">
             <div class="Presentacion">
-                <div id="contenedorAnimales"></div>
+              <h2>Gestión animales refugio</h2>
+                <div id="contenedorAnimales" class="contenedorAnimales"></div>
             </div>
         </div>
         <script src="../../js/InicioAdmin.js"></script>
@@ -56,11 +57,14 @@ fetch(`http://localhost:3000/api/animales/refugio/${idRefugio}`)
 
       card.innerHTML = `
         <img src="${animal.imagen_url}" alt="Foto de ${animal.animal}" width="200">
+        <div class="perfil-animal">
         <h3>${animal.animal}</h3>
         <p>Raza: ${animal.raza}</p>
         <p>Vacuna: ${animal.id_vacunas}</p>
         <p>Estado: ${animal.estado}</p>
         <button onclick="eliminarAnimal(${animal.id_animal})">Eliminar</button>
+        </div>
+
       `;
 
       contenedor.appendChild(card);

@@ -22,3 +22,20 @@ export const obtenerRolPorId = async (id_rol) =>{
     );
     return rows[0]?.nombre;
 };
+
+export const actualizarUsuarioPorCorreo = async (correo, campos) => {
+  const camposValidos = ['nombre', 'correo', 'contraseña'];
+  const entradas = Object.entries(campos).filter(([clave]) => camposValidos.includes(clave));
+
+  if (entradas.length === 0) return { affectedRows: 0 };
+
+  const columnas = entradas.map(([clave]) => `${clave} = ?`).join(', ');
+  const valores = entradas.map(([_, valor]) => valor);
+
+  const [result] = await pool.query(
+    `UPDATE usuarios SET ${columnas} WHERE correo = ?`,
+    [...valores, correo]
+  );
+
+  return result;
+};
